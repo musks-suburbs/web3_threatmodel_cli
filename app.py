@@ -242,5 +242,11 @@ def main() -> None:
     print_full_model(model)
 
 
-if __name__ == "__main__":
+def _run() -> int:
     main()
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(_run())
+
