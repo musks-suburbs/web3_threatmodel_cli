@@ -175,7 +175,7 @@ def print_section(model: ThreatModel, section: str) -> None:
     print("")
 
 
-def print_full_model(model: ThreatModel) -> None:
+def print_full_model(model: ThreatModel, show_note: bool = True) -> None:
     print(f"Threat model profile: {model.name}")
     print("")
     print_section(model, "overview")
@@ -183,9 +183,11 @@ def print_full_model(model: ThreatModel) -> None:
     print_section(model, "adversaries")
     print_section(model, "attacks")
     print_section(model, "mitigations")
-    print("Note:")
-    print("This output is an educational starting point and does not replace a full security review.")
-    print("Always adapt and extend it for your specific protocol, chain, and deployment model.")
+    if show_note:
+        print("Note:")
+        print("This output is an educational starting point and does not replace a full security review.")
+        print("Always adapt and extend it for your specific protocol, chain, and deployment model.")
+
 
 
 def main() -> None:
@@ -196,6 +198,12 @@ def main() -> None:
             "ecosystems such as Aztec, Zama, and soundness-focused research labs."
         ),
     )
+        parser.add_argument(
+        "--no-note",
+        action="store_true",
+        help="Skip the educational note footer when printing full models.",
+    )
+
     parser.add_argument(
         "--profile",
         type=str,
@@ -239,7 +247,7 @@ def main() -> None:
         print_section(model, args.section)
         return
 
-    print_full_model(model)
+     print_full_model(model, show_note=not args.no_note)
 
 
 if __name__ == "__main__":
