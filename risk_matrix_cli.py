@@ -177,21 +177,24 @@ def print_human(profile: RiskProfile) -> None:
         print(f"   Notes      : {cell.notes}")
         print("")
 
+def print_json(profile: RiskProfile) -> None:
+    payload: JSONDict = {
+        "profile": profile.key,
+        "name": profile.name,
+        "summary": profile.summary,
+        "matrix": [asdict(cell) for cell in profile.matrix],
+    }
+    print(json.dumps(payload, indent=2, sort_keys=True))
 
 def main() -> None:
     args = parse_args()
     profile = PROFILES[args.profile]
 
-    if args.json:
-        payload: Dict[str, Any] = {
-            "profile": profile.key,
-            "name": profile.name,
-            "summary": profile.summary,
-            "matrix": [asdict(cell) for cell in profile.matrix],
-        }
-        print(json.dumps(payload, indent=2, sort_keys=True))
+     if args.json:
+        print_json(profile)
     else:
         print_human(profile)
+
 
 
 if __name__ == "__main__":
