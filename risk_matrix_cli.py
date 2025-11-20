@@ -153,6 +153,12 @@ def parse_args() -> argparse.Namespace:
         default="aztec",
         help="Which profile to use (aztec, zama, soundness). Default: aztec.",
     )
+        parser.add_argument(
+        "--list-profiles",
+        action="store_true",
+        help="List available profiles and exit.",
+    )
+
     parser.add_argument(
         "--json",
         action="store_true",
@@ -180,7 +186,15 @@ def print_human(profile: RiskProfile) -> None:
 
 def main() -> None:
     args = parse_args()
+
+    if args.list_profiles:
+        print("Available profiles:")
+        for key, profile in PROFILES.items():
+            print(f"  {key:10s} - {profile.name}")
+        return
+
     profile = PROFILES[args.profile]
+
 
     if args.json:
         payload: Dict[str, Any] = {
