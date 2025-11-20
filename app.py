@@ -202,6 +202,12 @@ def main() -> None:
         choices=["aztec", "zama", "soundness"],
         help="Select which profile to use (aztec, zama, soundness).",
     )
+        parser.add_argument(
+        "--profile-description",
+        action="store_true",
+        help="Print only the overview/description of the selected profile.",
+    )
+
     parser.add_argument(
         "--section",
         type=str,
@@ -232,6 +238,11 @@ def main() -> None:
         return
 
     model = models[args.profile]
+    if args.profile_description:
+        print(f"Threat model profile: {model.name}")
+        print("")
+        print_section(model, "overview")
+        return
 
     if args.section:
         print(f"Threat model profile: {model.name}")
