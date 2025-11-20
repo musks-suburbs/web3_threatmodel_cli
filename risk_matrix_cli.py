@@ -1,3 +1,9 @@
+"""
+risk_matrix_cli
+
+A small CLI tool that prints qualitative risk matrices for Web3
+privacy/soundness projects. Designed as a companion to web3_threatmodel_cli.
+"""
 import argparse
 import json
 from dataclasses import dataclass, asdict
