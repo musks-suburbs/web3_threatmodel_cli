@@ -147,12 +147,29 @@ def parse_args() -> argparse.Namespace:
             "Designed as a companion to web3_threatmodel_cli."
         ),
     )
+        parser.add_argument(
+        "--summary-only",
+        action="store_true",
+        help="Print only the profile summary (no full matrix).",
+    )
+
     parser.add_argument(
         "--profile",
         choices=list(PROFILES.keys()),
         default="aztec",
         help="Which profile to use (aztec, zama, soundness). Default: aztec.",
     )
+    if args.json:
+        print_json(profile)
+        return
+
+    if args.summary_only:
+        print(f"{profile.name} ({profile.key})")
+        print(profile.summary)
+        return
+
+    print_human(profile)
+
     parser.add_argument(
         "--json",
         action="store_true",
