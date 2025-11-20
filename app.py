@@ -225,10 +225,11 @@ def main() -> None:
         print("web3_threatmodel_cli - Web3 privacy threat model helper")
         print("")
         list_profiles(models)
-        print("Examples:")
+            print("Examples:")
         print("  python app.py --profile aztec")
         print("  python app.py --profile zama --section assets")
         print("  python app.py --profile soundness --section mitigations")
+        print("  python app.py --profile soundness")
         return
 
     model = models[args.profile]
