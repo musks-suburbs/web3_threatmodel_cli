@@ -196,6 +196,12 @@ def main() -> None:
             "ecosystems such as Aztec, Zama, and soundness-focused research labs."
         ),
     )
+        parser.add_argument(
+        "--quiet",
+        action="store_true",
+        help="Reduce output noise (no banner if profile is missing).",
+    )
+
     parser.add_argument(
         "--profile",
         type=str,
@@ -222,14 +228,16 @@ def main() -> None:
         return
 
     if not args.profile:
-        print("web3_threatmodel_cli - Web3 privacy threat model helper")
-        print("")
-        list_profiles(models)
-        print("Examples:")
-        print("  python app.py --profile aztec")
-        print("  python app.py --profile zama --section assets")
-        print("  python app.py --profile soundness --section mitigations")
+        if not args.quiet:
+            print("web3_threatmodel_cli - Web3 privacy threat model helper")
+            print("")
+            list_profiles(models)
+            print("Examples:")
+            print("  python app.py --profile aztec")
+            print("  python app.py --profile zama --section assets")
+            print("  python app.py --profile soundness --section mitigations")
         return
+
 
     model = models[args.profile]
 
