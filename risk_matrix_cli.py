@@ -140,6 +140,7 @@ PROFILES: Dict[str, RiskProfile] = {
 
 
 def parse_args() -> argparse.Namespace:
+    """Parse command-line arguments for the risk_matrix_cli."""
     parser = argparse.ArgumentParser(
         prog="risk_matrix_cli",
         description=(
