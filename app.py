@@ -155,6 +155,10 @@ def print_section(model: ThreatModel, section: str) -> None:
         print(model.overview)
         print("")
         return
+    else:
+        print(f"Unknown section: {section}")
+        print("")
+        return
 
     items: List[str]
     if section == "assets":
