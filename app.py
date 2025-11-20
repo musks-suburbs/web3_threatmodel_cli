@@ -196,6 +196,12 @@ def main() -> None:
             "ecosystems such as Aztec, Zama, and soundness-focused research labs."
         ),
     )
+        parser.add_argument(
+        "--profile-keys-only",
+        action="store_true",
+        help="Print only profile keys (one per line) and exit.",
+    )
+
     parser.add_argument(
         "--profile",
         type=str,
@@ -216,6 +222,10 @@ def main() -> None:
 
     args = parser.parse_args()
     models = make_models()
+    if args.profile_keys_only:
+        for key in sorted(models.keys()):
+            print(key)
+        return
 
     if args.list_profiles:
         list_profiles(models)
