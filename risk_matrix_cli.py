@@ -19,6 +19,8 @@ class RiskProfile:
     name: str
     summary: str
     matrix: List[RiskCell]
+    
+PROFILE_KEYS = ["aztec", "zama", "soundness"]
 
 
 PROFILES: Dict[str, RiskProfile] = {
