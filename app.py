@@ -130,7 +130,8 @@ def make_models() -> Dict[str, ThreatModel]:
 
 def list_profiles(models: Dict[str, ThreatModel]) -> None:
     print("Available profiles related to Web3 privacy and soundness:")
-    for key, model in models.items():
+    for key in sorted(models.keys()):
+        model = models[key]
         print(f"- {key}: {model.name}")
     print("")
     print("Use --profile with one of these keys to print a threat model.")
