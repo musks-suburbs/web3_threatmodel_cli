@@ -147,6 +147,12 @@ def parse_args() -> argparse.Namespace:
             "Designed as a companion to web3_threatmodel_cli."
         ),
     )
+     parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
+        help="Show program's version number and exit.",
+    )
     parser.add_argument(
         "--profile",
         choices=list(PROFILES.keys()),
