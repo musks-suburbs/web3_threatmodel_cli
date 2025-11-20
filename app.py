@@ -183,8 +183,9 @@ def print_full_model(model: ThreatModel) -> None:
     print_section(model, "adversaries")
     print_section(model, "attacks")
     print_section(model, "mitigations")
-    print("Note:")
+     print("Note:")
     print("This output is an educational starting point and does not replace a full security review.")
+    print("")
     print("Always adapt and extend it for your specific protocol, chain, and deployment model.")
 
 
