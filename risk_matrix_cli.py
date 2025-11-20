@@ -179,6 +179,7 @@ def print_human(profile: RiskProfile) -> None:
 
 
 def main() -> None:
+    """Entry point for the risk_matrix_cli command-line interface."""
     args = parse_args()
     profile = PROFILES[args.profile]
 
