@@ -147,6 +147,11 @@ def parse_args() -> argparse.Namespace:
             "Designed as a companion to web3_threatmodel_cli."
         ),
     )
+      parser.add_argument(
+        "--no-color",
+        action="store_true",
+        help="Disable ANSI colors in human-readable output.",
+    )
     parser.add_argument(
         "--profile",
         choices=list(PROFILES.keys()),
@@ -181,7 +186,10 @@ def print_human(profile: RiskProfile) -> None:
 def main() -> None:
     args = parse_args()
     profile = PROFILES[args.profile]
-
+USE_COLOR = True
+   global USE_COLOR
+    if args.no_color:
+        USE_COLOR = False
     if args.json:
         payload: Dict[str, Any] = {
             "profile": profile.key,
