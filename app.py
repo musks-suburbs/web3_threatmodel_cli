@@ -221,8 +221,10 @@ def main() -> None:
         list_profiles(models)
         return
 
-    if not args.profile:
-        print("web3_threatmodel_cli - Web3 privacy threat model helper")
+       if not args.profile:
+        title = "web3_threatmodel_cli - Web3 privacy threat model helper"
+        # Bold if terminal supports ANSI; otherwise just print the plain title.
+        print(f"\033[1m{title}\033[0m")
         print("")
         list_profiles(models)
         print("Examples:")
@@ -230,6 +232,7 @@ def main() -> None:
         print("  python app.py --profile zama --section assets")
         print("  python app.py --profile soundness --section mitigations")
         return
+
 
     model = models[args.profile]
 
