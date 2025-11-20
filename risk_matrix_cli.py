@@ -159,6 +159,15 @@ def parse_args() -> argparse.Namespace:
         help="Print JSON instead of human-readable text.",
     )
     return parser.parse_args()
+    
+def _color_level(level: str) -> str:
+    """Return a colorized level string for terminals that support ANSI."""
+    mapping = {
+        "low": "\033[32mLOW\033[0m",      # green
+        "medium": "\033[33mMEDIUM\033[0m",  # yellow
+        "high": "\033[31mHIGH\033[0m",    # red
+    }
+    return mapping.get(level.lower(), level)
 
 
 def print_human(profile: RiskProfile) -> None:
@@ -172,8 +181,8 @@ def print_human(profile: RiskProfile) -> None:
     for idx, cell in enumerate(profile.matrix, start=1):
         print(f"{idx}. Asset      : {cell.asset}")
         print(f"   Threat     : {cell.threat}")
-        print(f"   Likelihood : {cell.likelihood}")
-        print(f"   Impact     : {cell.impact}")
+        print(f"   Likelihood : {_color_level(cell.likelihood)}")
+        print(f"   Impact     : {_color_level(cell.impact)}")
         print(f"   Notes      : {cell.notes}")
         print("")
 
