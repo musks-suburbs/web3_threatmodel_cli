@@ -196,6 +196,7 @@ def main() -> None:
             "ecosystems such as Aztec, Zama, and soundness-focused research labs."
         ),
     )
+    
     parser.add_argument(
         "--profile",
         type=str,
@@ -205,9 +206,10 @@ def main() -> None:
     parser.add_argument(
         "--section",
         type=str,
-        choices=["overview", "assets", "adversaries", "attacks", "mitigations"],
+        choices=["overview", "assets", "adversaries", "attacks", "mitigations", "all"],
         help="Print only a single section instead of the full threat model.",
     )
+
     parser.add_argument(
         "--list-profiles",
         action="store_true",
@@ -232,12 +234,19 @@ def main() -> None:
         return
 
     model = models[args.profile]
-
     if args.section:
         print(f"Threat model profile: {model.name}")
         print("")
-        print_section(model, args.section)
+        if args.section == "all":
+            print_section(model, "overview")
+            print_section(model, "assets")
+            print_section(model, "adversaries")
+            print_section(model, "attacks")
+            print_section(model, "mitigations")
+        else:
+            print_section(model, args.section)
         return
+
 
     print_full_model(model)
 
