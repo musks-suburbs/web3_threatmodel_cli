@@ -180,7 +180,11 @@ def print_human(profile: RiskProfile) -> None:
 
 def main() -> None:
     args = parse_args()
-    profile = PROFILES[args.profile]
+       try:
+        profile = PROFILES[args.profile]
+    except KeyError:
+        raise SystemExit(f"Unknown profile: {args.profile!r}. Use --list-profiles to see options.")
+
 
     if args.json:
         payload: Dict[str, Any] = {
