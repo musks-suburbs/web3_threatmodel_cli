@@ -174,6 +174,12 @@ def print_section(model: ThreatModel, section: str) -> None:
         print(f"{i}. {item}")
     print("")
 
+def print_section_titles(model: ThreatModel) -> None:
+    """Print just the section titles for a given model."""
+    print(f"Threat model profile: {model.name}")
+    print("")
+    for section in ["overview", "assets", "adversaries", "attacks", "mitigations"]:
+        print(f"- {section_title(section)}")
 
 def print_full_model(model: ThreatModel) -> None:
     print(f"Threat model profile: {model.name}")
