@@ -216,6 +216,12 @@ def main() -> None:
 
     args = parser.parse_args()
     models = make_models()
+        validate_models(models)
+
+def validate_models(models: Dict[str, ThreatModel]) -> None:
+    for key, model in models.items():
+        if key != model.key:
+            raise ValueError(f"Model key mismatch: dict key '{key}' vs model.key '{model.key}'")
 
     if args.list_profiles:
         list_profiles(models)
