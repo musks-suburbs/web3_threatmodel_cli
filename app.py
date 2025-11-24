@@ -187,6 +187,11 @@ def print_full_model(model: ThreatModel) -> None:
     print("This output is an educational starting point and does not replace a full security review.")
     print("Always adapt and extend it for your specific protocol, chain, and deployment model.")
 
+def get_model_or_die(models: Dict[str, ThreatModel], key: str) -> ThreatModel:
+    try:
+        return models[key]
+    except KeyError:
+        raise SystemExit(f"Unknown profile key: {key}")
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -231,7 +236,8 @@ def main() -> None:
         print("  python app.py --profile soundness --section mitigations")
         return
 
-    model = models[args.profile]
+       model = get_model_or_die(models, args.profile)
+
 
     if args.section:
         print(f"Threat model profile: {model.name}")
