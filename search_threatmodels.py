@@ -122,6 +122,7 @@ def search_text(
 
 
 def main() -> None:
+    """Entry point for the CLI search tool."""
     args = parse_args()
     app_path = Path(args.app_path)
 
