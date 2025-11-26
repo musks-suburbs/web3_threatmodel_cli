@@ -16,6 +16,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--fail-fast",
+        action="store_true",
+        help="Exit immediately on subprocess errors (default behaviour).",
+    )
+
     parser.add_argument(
         "--output",
         "-o",
