@@ -16,6 +16,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--table-title",
+        type=str,
+        default="",
+        help="Optional Markdown heading to print above the table.",
+    )
     parser.add_argument(
         "--output",
         "-o",
@@ -52,7 +58,7 @@ def run_list_profiles(app_path: Path) -> List[str]:
     return profiles
 
 
-def make_markdown_table(profiles: List[str]) -> str:
+def make_markdown_table(..., title: str = "") -> str:
     """
     Very simple Markdown table:
 
@@ -64,8 +70,9 @@ def make_markdown_table(profiles: List[str]) -> str:
     You can later edit the Description column manually.
     """
     lines = []
-    lines.append("| Profile | Description |")
-    lines.append("| ------- | ----------- |")
+    if title:
+        lines.append(f"## {title}")
+        lines.append("")
 
     for p in profiles:
         # You can customize this: right now Description == name
