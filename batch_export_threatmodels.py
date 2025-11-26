@@ -94,7 +94,8 @@ def main() -> None:
     print(f"Found profiles: {', '.join(profiles)}")
     print(f"Writing exports to: {out_dir.resolve()}")
 
-    for profile in profiles:
+      for idx, profile in enumerate(profiles, start=1):
+        print(f"Processing {idx}/{len(profiles)}: {profile}")
         try:
             text = run_profile(app_path, profile)
         except Exception as e:  # noqa: BLE001
