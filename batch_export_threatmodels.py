@@ -107,6 +107,12 @@ def main() -> None:
         else:
             content = text
             ext = ".txt"
+    if result.returncode != 0:
+        if result.stderr:
+            debug(f"stderr for profile {profile}: {result.stderr}")
+        raise RuntimeError(
+            ...
+        )
 
         out_path = out_dir / f"{profile}{ext}"
         out_path.write_text(content, encoding="utf-8")
