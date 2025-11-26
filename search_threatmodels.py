@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+search_threatmodels.py
+
+CLI helper to search generated threatmodel profiles for a text query.
+"""
 from __future__ import annotations
 
 import argparse
