@@ -45,6 +45,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Case-insensitive comparison (lowercases both sides before diff).",
     )
+        parser.add_argument(
+        "--silent-if-identical",
+        action="store_true",
+        help="Produce no output if profiles are identical.",
+    )
+
     parser.add_argument(
         "--context-lines",
         "-C",
@@ -52,11 +58,13 @@ def parse_args() -> argparse.Namespace:
         default=3,
         help="Number of context lines for the unified diff (default: 3).",
     )
-    parser.add_argument(
+    
+       parser.add_argument(
         "--no-color",
         action="store_true",
-        help="Disable simple ANSI colors in the diff output.",
+        help="Disable ANSI colors in the diff output (always plain text).",
     )
+
     return parser.parse_args()
 
 
@@ -144,8 +152,9 @@ def main() -> None:
         any_output = True
         print(colorize(line, args.no_color))
 
-    if not any_output:
-        print("Profiles are identical (under the chosen options).")
+ if not any_output:
+        if not args.silent_if_identical:
+            print("Profiles are identical (under the chosen options).")
 
 
 if __name__ == "__main__":
