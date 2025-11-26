@@ -16,6 +16,13 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--python",
+        type=str,
+        default=sys.executable,
+        help="Python interpreter to use when running app.py (default: current Python).",
+    )
+
     parser.add_argument(
         "--output",
         "-o",
@@ -26,12 +33,12 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def run_list_profiles(app_path: Path) -> List[str]:
+def run_list_profiles(app_path: Path, python_cmd: str = sys.executable, ...) -> List[str]:
     if not app_path.is_file():
         print(f"ERROR: app.py not found at {app_path}", file=sys.stderr)
         sys.exit(1)
 
-    cmd = [sys.executable, str(app_path), "--list-profiles"]
+    cmd = [python_cmd, str(app_path), "--list-profiles"]
 
     result = subprocess.run(
         cmd,
@@ -93,7 +100,13 @@ def main() -> None:
     args = parse_args()
     app_path = Path(args.app_path)
 
-    profiles = run_list_profiles(app_path)
+       profiles = run_list_profiles(
+        app_path,
+        python_cmd=args.python,
+        sort_profiles=not args.no_sort,
+        skip_prefix=args.skip_prefix,
+    )
+
     if not profiles:
         print("No profiles found in `app.py --list-profiles` output.", file=sys.stderr)
         sys.exit(1)
