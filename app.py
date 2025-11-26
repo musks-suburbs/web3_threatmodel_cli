@@ -191,10 +191,10 @@ def print_full_model(model: ThreatModel) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(
         prog="web3_threatmodel_cli",
-        description=(
-            "Generate high level threat models for Web3 privacy projects inspired by "
-            "ecosystems such as Aztec, Zama, and soundness-focused research labs."
-        ),
+       description=(
+    "Search threatmodel profiles for a given query string.\n"
+    "Relies on app.py supporting --list-profiles and --profile."
+)
     )
     parser.add_argument(
         "--profile",
