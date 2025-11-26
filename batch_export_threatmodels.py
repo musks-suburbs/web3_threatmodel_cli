@@ -19,6 +19,11 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--stdout-profile",
+        type=str,
+        help="If set, only export this profile to stdout and exit.",
+    )
     parser.add_argument(
         "--out-dir",
         type=str,
@@ -83,6 +88,16 @@ def main() -> None:
     args = parse_args()
     app_path = Path(args.app_path)
     out_dir = Path(args.out_dir)
+    if args.stdout_profile:
+        text = run_profile(app_path, args.stdout_profile)
+        if args.format == "md":
+            content = wrap_markdown(args.stdout_profile, text)
+        else:
+            content = text
+        sys.stdout.write(content)
+        if not content.endswith("\n"):
+            sys.stdout.write("\n")
+        return
 
     profiles = run_list_profiles(app_path)
     if not profiles:
