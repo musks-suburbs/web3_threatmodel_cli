@@ -13,6 +13,13 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Export all threatmodel profiles to individual files."
     )
+        parser.add_argument(
+        "--python",
+        type=str,
+        default=sys.executable,
+        help="Python interpreter to use (default: current Python).",
+    )
+
     parser.add_argument(
         "--app-path",
         type=str,
@@ -34,7 +41,7 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def run_list_profiles(app_path: Path) -> List[str]:
+def run_list_profiles(app_path: Path, ..., python_cmd: str = sys.executable) -> List[str]:
     if not app_path.is_file():
         print(f"ERROR: app.py not found at {app_path}", file=sys.stderr)
         sys.exit(1)
@@ -58,7 +65,7 @@ def run_list_profiles(app_path: Path) -> List[str]:
     return profiles
 
 
-def run_profile(app_path: Path, profile: str) -> str:
+def run_profile(app_path: Path, profile: str, python_cmd: str = sys.executable) -> str:
     cmd = [sys.executable, str(app_path), "--profile", profile]
     result = subprocess.run(
         cmd,
@@ -84,7 +91,7 @@ def main() -> None:
     app_path = Path(args.app_path)
     out_dir = Path(args.out_dir)
 
-    profiles = run_list_profiles(app_path)
+    profiles = run_list_profiles(app_path, sort_profiles=not args.no_sort, python_cmd=args.python)
     if not profiles:
         print("No profiles found; nothing to export.", file=sys.stderr)
         sys.exit(1)
@@ -96,7 +103,7 @@ def main() -> None:
 
     for profile in profiles:
         try:
-            text = run_profile(app_path, profile)
+          text = run_profile(app_path, profile, python_cmd=args.python)
         except Exception as e:  # noqa: BLE001
             print(f"ERROR exporting profile '{profile}': {e}", file=sys.stderr)
             continue
