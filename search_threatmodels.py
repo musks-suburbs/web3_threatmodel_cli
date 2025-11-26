@@ -20,6 +20,11 @@ def parse_args() -> argparse.Namespace:
         help="Text to search for in the generated threatmodels.",
     )
     parser.add_argument(
+    "--no-blank-lines",
+    action="store_true",
+    help="Do not print blank lines between profiles.",
+)
+    parser.add_argument(
         "--app-path",
         type=str,
         default="app.py",
@@ -152,7 +157,8 @@ def main() -> None:
         profiles = selected
     else:
         profiles = all_profiles
-
+if not args.no_blank_lines:
+    print()
     if not profiles:
         print("No matching profiles to search after filtering.", file=sys.stderr)
         sys.exit(1)
