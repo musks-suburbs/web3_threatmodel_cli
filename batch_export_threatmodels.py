@@ -13,6 +13,13 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Export all threatmodel profiles to individual files."
     )
+        parser.add_argument(
+        "--heading-level",
+        type=int,
+        default=1,
+        help="Markdown heading level for the title (1-6, default: 1).",
+    )
+
     parser.add_argument(
         "--app-path",
         type=str,
@@ -74,9 +81,11 @@ def run_profile(app_path: Path, profile: str) -> str:
     return result.stdout
 
 
-def wrap_markdown(profile: str, body: str) -> str:
+def wrap_markdown(profile: str, body: str, heading_level: int = 1) -> str:
     body = body.rstrip("\n")
-    return f"# Threat model: `{profile}`\n\n```text\n{body}\n```\n"
+    heading_prefix = "#" * max(1, min(6, heading_level))
+    return f"{heading_prefix} Threat model: `{profile}`\n\n```text\n{body}\n```\n"
+
 
 
 def main() -> None:
@@ -93,7 +102,7 @@ def main() -> None:
 
     print(f"Found profiles: {', '.join(profiles)}")
     print(f"Writing exports to: {out_dir.resolve()}")
-
+content = wrap_markdown(profile, text, heading_level=args.heading_level)
     for profile in profiles:
         try:
             text = run_profile(app_path, profile)
