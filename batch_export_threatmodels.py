@@ -25,6 +25,11 @@ def parse_args() -> argparse.Namespace:
         default="exports",
         help="Directory to write files into (default: ./exports).",
     )
+        parser.add_argument(
+        "--no-sort",
+        action="store_true",
+        help="Do not sort profiles alphabetically; keep original order.",
+    )
     parser.add_argument(
         "--format",
         choices=("md", "txt"),
@@ -34,7 +39,7 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def run_list_profiles(app_path: Path) -> List[str]:
+def run_list_profiles(app_path: Path, sort_profiles: bool = True) -> List[str]:
     if not app_path.is_file():
         print(f"ERROR: app.py not found at {app_path}", file=sys.stderr)
         sys.exit(1)
@@ -84,7 +89,7 @@ def main() -> None:
     app_path = Path(args.app_path)
     out_dir = Path(args.out_dir)
 
-    profiles = run_list_profiles(app_path)
+      profiles = run_list_profiles(app_path, sort_profiles=not args.no_sort)
     if not profiles:
         print("No profiles found; nothing to export.", file=sys.stderr)
         sys.exit(1)
