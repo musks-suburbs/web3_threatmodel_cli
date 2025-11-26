@@ -16,6 +16,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--no-strip",
+        action="store_true",
+        help="Do not strip whitespace from profile lines.",
+    )
+
     parser.add_argument(
         "--output",
         "-o",
@@ -26,11 +32,14 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def run_list_profiles(app_path: Path) -> List[str]:
+def run_list_profiles(..., strip: bool = True, ...) -> List[str]:
     if not app_path.is_file():
         print(f"ERROR: app.py not found at {app_path}", file=sys.stderr)
         sys.exit(1)
-
+ if strip:
+        lines = [line.strip() for line in result.stdout.splitlines()]
+    else:
+        lines = [line for line in result.stdout.splitlines()]
     cmd = [sys.executable, str(app_path), "--list-profiles"]
 
     result = subprocess.run(
