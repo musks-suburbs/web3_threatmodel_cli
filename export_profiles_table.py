@@ -99,7 +99,9 @@ def main() -> None:
         sys.exit(1)
 
     markdown = make_markdown_table(profiles)
-    write_output(markdown, args.output)
+       write_output(markdown, args.output)
+    print("Markdown export completed successfully.", file=sys.stderr)
+
 
 
 if __name__ == "__main__":
