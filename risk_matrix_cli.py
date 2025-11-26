@@ -140,13 +140,17 @@ PROFILES: Dict[str, RiskProfile] = {
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
+      parser = argparse.ArgumentParser(
         prog="risk_matrix_cli",
         description=(
-            "Print a small qualitative risk matrix for Web3 privacy/soundness projects. "
+            "Print a small qualitative risk matrix for Web3 privacy/soundness projects.\n\n"
+            "Examples:\n"
+            "  risk_matrix_cli --profile aztec\n"
+            "  risk_matrix_cli --profile zama --json\n\n"
             "Designed as a companion to web3_threatmodel_cli."
         ),
     )
+
     parser.add_argument(
         "--profile",
         choices=list(PROFILES.keys()),
