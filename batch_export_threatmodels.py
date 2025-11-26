@@ -81,7 +81,7 @@ def wrap_markdown(profile: str, body: str) -> str:
 
 def main() -> None:
     args = parse_args()
-    app_path = Path(args.app_path)
+        app_path = Path(args.app_path).resolve()
     out_dir = Path(args.out_dir)
 
     profiles = run_list_profiles(app_path)
