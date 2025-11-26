@@ -88,3 +88,7 @@ When you request a single section with the section flag, only that part is print
 - Threat models need to be adapted to the exact protocol design, infrastructure, and deployment details of your system.
 - For real systems, always combine these outlines with protocol specifications, implementation reviews, audits, and peer discussion.
 - You are encouraged to fork the repository and tune the profiles or add new ones for your own Web3 projects.
+Make it executable (optional):
+
+```bash
+chmod +x scripts/search_threatmodels.py
