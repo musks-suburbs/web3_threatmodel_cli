@@ -31,7 +31,9 @@ def run_list_profiles(app_path: Path) -> List[str]:
         print(f"ERROR: app.py not found at {app_path}", file=sys.stderr)
         sys.exit(1)
 
-    cmd = [sys.executable, str(app_path), "--list-profiles"]
+        cmd = [sys.executable, str(app_path), "--list-profiles"]
+    print(f"Running command: {' '.join(cmd)}", file=sys.stderr)
+
 
     result = subprocess.run(
         cmd,
