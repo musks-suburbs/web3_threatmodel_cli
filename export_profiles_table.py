@@ -16,6 +16,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--no-fail-on-empty",
+        action="store_true",
+        help="Do not treat 'no profiles found' as an error.",
+    )
+
     parser.add_argument(
         "--output",
         "-o",
@@ -94,9 +100,15 @@ def main() -> None:
     app_path = Path(args.app_path)
 
     profiles = run_list_profiles(app_path)
-    if not profiles:
-        print("No profiles found in `app.py --list-profiles` output.", file=sys.stderr)
-        sys.exit(1)
+      if not profiles:
+        msg = "No profiles found in `app.py --list-profiles` output."
+        if args.no_fail_on_empty:
+            print(msg, file=sys.stderr)
+            sys.exit(EXIT_OK)
+        else:
+            print(msg, file=sys.stderr)
+            sys.exit(EXIT_NO_PROFILES)
+
 
     markdown = make_markdown_table(profiles)
     write_output(markdown, args.output)
