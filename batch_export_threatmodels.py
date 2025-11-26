@@ -19,6 +19,13 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--comment-prefix",
+        type=str,
+        default="#",
+        help="Lines starting with this prefix are ignored as comments (default: '#').",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
@@ -34,7 +41,7 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def run_list_profiles(app_path: Path) -> List[str]:
+def run_list_profiles(app_path: Path, ..., comment_prefix: str = "#") -> List[str]:
     if not app_path.is_file():
         print(f"ERROR: app.py not found at {app_path}", file=sys.stderr)
         sys.exit(1)
@@ -107,6 +114,12 @@ def main() -> None:
         else:
             content = text
             ext = ".txt"
+    profiles = run_list_profiles(
+        app_path,
+        sort_profiles=not args.no_sort,
+        python_cmd=args.python,
+        comment_prefix=args.comment_prefix,
+    )
 
         out_path = out_dir / f"{profile}{ext}"
         out_path.write_text(content, encoding="utf-8")
