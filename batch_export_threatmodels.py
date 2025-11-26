@@ -115,5 +115,7 @@ def main() -> None:
     print("Done.")
 
 
+# Example:
+#   python compare_threatmodels.py aztec zama --section mitigations
 if __name__ == "__main__":
     main()
