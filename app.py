@@ -196,6 +196,12 @@ def main() -> None:
             "ecosystems such as Aztec, Zama, and soundness-focused research labs."
         ),
     )
+        parser.add_argument(
+        "--list-sections",
+        action="store_true",
+        help="List available section names and exit.",
+    )
+
     parser.add_argument(
         "--profile",
         type=str,
@@ -232,6 +238,11 @@ def main() -> None:
         return
 
     model = models[args.profile]
+    if args.list_sections:
+        print("Available sections:")
+        for s in SECTION_CHOICES:
+            print(f"- {s}")
+        return
 
     if args.section:
         print(f"Threat model profile: {model.name}")
