@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+"""
+compare_threatmodels.py
+
+Compare two threatmodel profiles from web3_threatmodel_cli and show a unified diff.
+"""
+
 import argparse
 import subprocess
 import sys
