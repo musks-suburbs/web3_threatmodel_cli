@@ -4,6 +4,7 @@ import subprocess
 import sys
 from pathlib import Path
 from typing import List
+DEBUG = False
 
 
 def parse_args() -> argparse.Namespace:
@@ -15,6 +16,11 @@ def parse_args() -> argparse.Namespace:
         type=str,
         default="app.py",
         help="Path to app.py (default: ./app.py).",
+    )
+        parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Enable debug output.",
     )
     parser.add_argument(
         "--output",
@@ -88,10 +94,15 @@ def write_output(text: str, output: str) -> None:
         print(f"ERROR: failed to write output file {path}: {e}", file=sys.stderr)
         sys.exit(1)
 
+def debug(msg: str) -> None:
+    if DEBUG:
+        print(f"[DEBUG] {msg}", file=sys.stderr)
 
 def main() -> None:
     args = parse_args()
     app_path = Path(args.app_path)
+    global DEBUG
+    DEBUG = args.debug
 
     profiles = run_list_profiles(app_path)
     if not profiles:
