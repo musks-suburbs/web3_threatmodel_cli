@@ -50,6 +50,12 @@ def parse_args() -> argparse.Namespace:
         help="Case-insensitive search.",
     )
     parser.add_argument(
+    "--no-warn-missing",
+    action="store_true",
+    help="Do not warn about profiles that do not exist.",
+)
+
+    parser.add_argument(
         "--show-context",
         action="store_true",
         help="Print the full threatmodel/section instead of matching lines only.",
