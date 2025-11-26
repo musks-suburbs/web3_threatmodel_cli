@@ -2,12 +2,33 @@
 
 from __future__ import annotations
 
-import argparse
 import subprocess
 import sys
 from pathlib import Path
-from typing import List
 
+def test_compare_help_runs():
+    script = Path("scripts/compare_threatmodels.py")
+    result = subprocess.run(
+        [sys.executable, str(script), "--help"],
+        text=True,
+        capture_output=True,
+    )
+    assert result.returncode == 0
+    assert "Compare two threatmodel profiles" in result.stdout
+
+import subprocess
+import sys
+from pathlib import Path
+
+def test_compare_help_runs():
+    script = Path("scripts/compare_threatmodels.py")
+    result = subprocess.run(
+        [sys.executable, str(script), "--help"],
+        text=True,
+        capture_output=True,
+    )
+    assert result.returncode == 0
+    assert "Compare two threatmodel profiles" in result.stdout
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
