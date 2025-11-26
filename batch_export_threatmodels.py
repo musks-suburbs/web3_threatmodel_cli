@@ -19,6 +19,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--no-create-dir-on-empty",
+        action="store_true",
+        help="Do not create the output directory if no profiles are found.",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
