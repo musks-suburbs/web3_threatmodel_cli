@@ -16,6 +16,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--encoding",
+        type=str,
+        default="utf-8",
+        help="Encoding to use for the output file (default: utf-8).",
+    )
     parser.add_argument(
         "--output",
         "-o",
@@ -74,7 +80,7 @@ def make_markdown_table(profiles: List[str]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def write_output(text: str, output: str) -> None:
+def write_output(text: str, output: str, encoding: str = "utf-8") -> None:
     if output == "-" or output == "":
         sys.stdout.write(text)
         if not text.endswith("\n"):
@@ -83,7 +89,7 @@ def write_output(text: str, output: str) -> None:
 
     path = Path(output)
     try:
-        path.write_text(text, encoding="utf-8")
+        path.write_text(text, encoding=encoding)
     except OSError as e:
         print(f"ERROR: failed to write output file {path}: {e}", file=sys.stderr)
         sys.exit(1)
