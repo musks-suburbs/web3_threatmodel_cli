@@ -196,6 +196,11 @@ def main() -> None:
             "ecosystems such as Aztec, Zama, and soundness-focused research labs."
         ),
     )
+        parser.add_argument(
+        "--strip-prefix",
+        type=str,
+        help="Optional prefix to strip from profile labels in diff headers.",
+    )
     parser.add_argument(
         "--profile",
         type=str,
