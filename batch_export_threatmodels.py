@@ -19,6 +19,17 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--markdown",
+        action="store_true",
+        help="Alias for --format md.",
+    )
+    parser.add_argument(
+        "--text",
+        action="store_true",
+        help="Alias for --format txt.",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
@@ -107,7 +118,10 @@ def main() -> None:
         else:
             content = text
             ext = ".txt"
-
+   if args.markdown:
+        args.format = "md"
+    if args.text:
+        args.format = "txt"
         out_path = out_dir / f"{profile}{ext}"
         out_path.write_text(content, encoding="utf-8")
         print(f"  - wrote {out_path}")
