@@ -96,10 +96,10 @@ def run_profile(
         check=False,
     )
     if result.returncode != 0:
-        raise RuntimeError(
-            f"`app.py --profile {profile}` failed with code {result.returncode}.\n"
-            f"stderr:\n{result.stderr}"
-        )
+     raise RuntimeError(
+    f"app.py --profile {profile} failed (exit {result.returncode}). "
+    f"{result.stderr.strip()}"
+)
     return result.stdout
 
 
