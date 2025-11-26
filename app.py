@@ -196,6 +196,9 @@ def main() -> None:
             "ecosystems such as Aztec, Zama, and soundness-focused research labs."
         ),
     )
+    # Used by scripts/search_threatmodels.py and other helpers.
+parser.add_argument("--list-profiles", action="store_true", help="List available profiles and exit.")
+
     parser.add_argument(
         "--profile",
         type=str,
