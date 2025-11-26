@@ -20,6 +20,16 @@ def parse_args() -> argparse.Namespace:
         help="Text to search for in the generated threatmodels.",
     )
     parser.add_argument(
+    "--show-profiles",
+    action="store_true",
+    help="Print discovered profile names before searching.",
+)
+
+# after building `all_profiles`
+if args.show_profiles:
+    print("Profiles:", ", ".join(all_profiles))
+
+    parser.add_argument(
         "--app-path",
         type=str,
         default="app.py",
