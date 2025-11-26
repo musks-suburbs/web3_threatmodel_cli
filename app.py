@@ -197,6 +197,16 @@ def main() -> None:
         ),
     )
     parser.add_argument(
+    "--debug-cmd",
+    action="store_true",
+    help="Print underlying app.py commands to stderr.",
+)
+
+# in run_list_profiles / run_profile, before subprocess.run:
+if getattr(args, "debug_cmd", False):  # pass args or use global
+    print("DEBUG:", " ".join(cmd), file=sys.stderr)
+
+    parser.add_argument(
         "--profile",
         type=str,
         choices=["aztec", "zama", "soundness"],
