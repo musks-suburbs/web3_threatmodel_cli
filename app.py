@@ -3,7 +3,7 @@ import argparse
 from dataclasses import dataclass, field
 from typing import List, Dict
 
-
+VERSION = "0.1.0"
 @dataclass
 class ThreatModel:
     key: str
@@ -212,6 +212,11 @@ def main() -> None:
         "--list-profiles",
         action="store_true",
         help="List available profiles and exit.",
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {VERSION}",
     )
 
     args = parser.parse_args()
