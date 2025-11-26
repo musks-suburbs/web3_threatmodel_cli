@@ -3,6 +3,11 @@ import argparse
 from dataclasses import dataclass, field
 from typing import List, Dict
 
+SECTION_CHOICES = ["overview", "assets", "adversaries", "attacks", "attack-surfaces", "mitigations"]
+def normalize_section(section: str) -> str:
+    if section == "attack-surfaces":
+        return "attacks"
+    return section
 
 @dataclass
 class ThreatModel:
