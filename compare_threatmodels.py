@@ -52,6 +52,12 @@ def parse_args() -> argparse.Namespace:
         default=3,
         help="Number of context lines for the unified diff (default: 3).",
     )
+        parser.add_argument(
+        "--trim-empty",
+        action="store_true",
+        help="Ignore leading and trailing blank lines before diffing.",
+    )
+
     parser.add_argument(
         "--no-color",
         action="store_true",
@@ -119,7 +125,9 @@ def main() -> None:
     # Fetch both profiles
     text_a = run_profile(app_path, args.profile_a, section=section)
     text_b = run_profile(app_path, args.profile_b, section=section)
-
+    if args.trim_empty:
+        text_a = text_a.strip("\n")
+        text_b = text_b.strip("\n")
     if args.ignore_case:
         a_lines = [line.lower() for line in text_a.splitlines(keepends=False)]
         b_lines = [line.lower() for line in text_b.splitlines(keepends=False)]
