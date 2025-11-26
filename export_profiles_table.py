@@ -16,6 +16,13 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--max-profiles",
+        type=int,
+        default=0,
+        help="Maximum number of profiles to include (0 = no limit).",
+    )
+
     parser.add_argument(
         "--output",
         "-o",
@@ -94,6 +101,8 @@ def main() -> None:
     app_path = Path(args.app_path)
 
     profiles = run_list_profiles(app_path)
+    if args.max_profiles > 0:
+        profiles = profiles[:args.max_profiles]
     if not profiles:
         print("No profiles found in `app.py --list-profiles` output.", file=sys.stderr)
         sys.exit(1)
