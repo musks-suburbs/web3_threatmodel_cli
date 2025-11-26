@@ -65,6 +65,9 @@ python app.py --profile zama --section assets
 
 Print only the mitigations section for a soundness focused protocol lab:
 python app.py --profile soundness --section mitigations
+# Scripts
+
+Small helper tools that wrap `app.py`, e.g. for searching or exporting profiles.
 
 
 ## Output
