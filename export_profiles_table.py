@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Requires Python 3.10+ (for type hints and pathlib features).
 import argparse
 import subprocess
 import sys
