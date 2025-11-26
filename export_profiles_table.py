@@ -90,6 +90,7 @@ def write_output(text: str, output: str) -> None:
 
 
 def main() -> None:
+    """Parse arguments, obtain profiles, and write the Markdown table."""
     args = parse_args()
     app_path = Path(args.app_path)
 
