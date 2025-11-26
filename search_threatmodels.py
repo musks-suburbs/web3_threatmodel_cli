@@ -102,7 +102,7 @@ def run_profile(
         )
     return result.stdout
 
-
+# Return the list of lines containing the query (case-sensitive or insensitive).
 def search_text(
     text: str,
     query: str,
