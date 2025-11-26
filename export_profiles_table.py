@@ -53,15 +53,9 @@ def run_list_profiles(app_path: Path) -> List[str]:
 
 
 def make_markdown_table(profiles: List[str]) -> str:
-    """
-    Very simple Markdown table:
+    """Build a simple Markdown table from a list of profile names.
 
-    | Profile | Description |
-    | ------- | ----------- |
-    | aztec   | aztec       |
-    | zama    | zama        |
-
-    You can later edit the Description column manually.
+    The description column is initially identical to the profile name.
     """
     lines = []
     lines.append("| Profile | Description |")
