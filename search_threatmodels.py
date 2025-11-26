@@ -102,7 +102,7 @@ def run_profile(
         )
     return result.stdout
 
-
+matches.append(line.rstrip())
 def search_text(
     text: str,
     query: str,
