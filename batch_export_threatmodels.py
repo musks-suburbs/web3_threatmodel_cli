@@ -25,6 +25,12 @@ def parse_args() -> argparse.Namespace:
         default="exports",
         help="Directory to write files into (default: ./exports).",
     )
+        parser.add_argument(
+        "--strip-trailing-newlines",
+        action="store_true",
+        help="Strip trailing newlines from profile output.",
+    )
+
     parser.add_argument(
         "--format",
         choices=("md", "txt"),
@@ -93,6 +99,8 @@ def main() -> None:
 
     print(f"Found profiles: {', '.join(profiles)}")
     print(f"Writing exports to: {out_dir.resolve()}")
+        if args.strip_trailing_newlines:
+            text = text.rstrip("\n")
 
     for profile in profiles:
         try:
