@@ -30,6 +30,14 @@ def run_list_profiles(app_path: Path) -> List[str]:
     if not app_path.is_file():
         print(f"ERROR: app.py not found at {app_path}", file=sys.stderr)
         sys.exit(1)
+    if result.returncode != 0:
+        print("ERROR: `app.py --list-profiles` failed.", file=sys.stderr)
+        if result.stderr:
+            print("stderr:", result.stderr, file=sys.stderr)
+        sys.exit(result.returncode)
+
+    if result.stderr:
+        debug(f"app.py stderr: {result.stderr}")
 
     cmd = [sys.executable, str(app_path), "--list-profiles"]
 
