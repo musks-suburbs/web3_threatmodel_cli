@@ -33,6 +33,10 @@ def parse_args() -> argparse.Namespace:
     )
     return parser.parse_args()
 
+    safe = "".join(...)
+    if safe != name:
+        debug(f"Profile '{name}' mapped to safe filename '{safe}'")
+    return safe
 
 def run_list_profiles(app_path: Path) -> List[str]:
     if not app_path.is_file():
