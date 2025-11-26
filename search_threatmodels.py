@@ -15,6 +15,7 @@ def parse_args() -> argparse.Namespace:
             "Uses app.py --list-profiles and app.py --profile <name> under the hood."
         )
     )
+    
     parser.add_argument(
         "query",
         help="Text to search for in the generated threatmodels.",
@@ -49,6 +50,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Case-insensitive search.",
     )
+    parser.add_argument(
+    "--quiet-errors",
+    action="store_true",
+    help="Suppress non-fatal warnings.",
+)
     parser.add_argument(
         "--show-context",
         action="store_true",
@@ -124,7 +130,11 @@ def search_text(
 def main() -> None:
     args = parse_args()
     app_path = Path(args.app_path)
-
+if missing and not args.quiet_errors:
+    print(
+        f"WARNING: unknown profiles requested: {', '.join(sorted(missing))}",
+        file=sys.stderr,
+    )
     try:
         all_profiles = run_list_profiles(app_path)
     except SystemExit:
