@@ -166,7 +166,8 @@ def print_section(model: ThreatModel, section: str) -> None:
     elif section == "mitigations":
         items = model.mitigations
     else:
-        print("Unknown section.")
+        print(f"Unknown section: {section}")
+        print(f"Valid sections are: {', '.join(SECTION_CHOICES)}")
         print("")
         return
 
