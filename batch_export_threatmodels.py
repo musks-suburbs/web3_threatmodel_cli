@@ -19,6 +19,13 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--max-profiles",
+        type=int,
+        default=0,
+        help="Maximum number of profiles to export (0 = no limit).",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
@@ -88,6 +95,8 @@ def main() -> None:
     if not profiles:
         print("No profiles found; nothing to export.", file=sys.stderr)
         sys.exit(1)
+    if args.max_profiles > 0:
+        profiles = profiles[:args.max_profiles]
 
     out_dir.mkdir(parents=True, exist_ok=True)
 
