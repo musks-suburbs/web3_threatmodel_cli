@@ -10,6 +10,12 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Export web3_threatmodel_cli profiles as a Markdown table."
     )
+        parser.add_argument(
+        "--profiles-only",
+        action="store_true",
+        help="Print the profile names (one per line) instead of a Markdown table.",
+    )
+
     parser.add_argument(
         "--app-path",
         type=str,
@@ -97,6 +103,10 @@ def main() -> None:
     if not profiles:
         print("No profiles found in `app.py --list-profiles` output.", file=sys.stderr)
         sys.exit(1)
+    if args.profiles_only:
+        for p in profiles:
+            print(p)
+        sys.exit(EXIT_OK)
 
     markdown = make_markdown_table(profiles)
     write_output(markdown, args.output)
