@@ -232,7 +232,14 @@ def main() -> None:
         return
 
     model = models[args.profile]
+  profile_aliases = {
+        "a": "aztec",
+        "z": "zama",
+        "s": "soundness",
+    }
 
+    if args.profile in profile_aliases:
+        args.profile = profile_aliases[args.profile]
     if args.section:
         print(f"Threat model profile: {model.name}")
         print("")
