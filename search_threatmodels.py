@@ -16,6 +16,26 @@ def parse_args() -> argparse.Namespace:
         )
     )
     parser.add_argument(
+    "--count-only",
+    action="store_true",
+    help="Only print total number of matches, not the lines.",
+)
+
+# in main()
+total_matches = 0
+
+# after `matches = search_text(...)`
+total_matches += len(matches)
+
+# when printing:
+if args.count_only:
+    continue  # skip printing
+
+# after loop, before exit:
+if args.count_only:
+    print(f"Total matches: {total_matches}")
+
+    parser.add_argument(
         "query",
         help="Text to search for in the generated threatmodels.",
     )
