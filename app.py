@@ -6,6 +6,7 @@ from typing import List, Dict
 
 @dataclass
 class ThreatModel:
+    """Structured container for a single threat model profile."""
     key: str
     name: str
     overview: str
