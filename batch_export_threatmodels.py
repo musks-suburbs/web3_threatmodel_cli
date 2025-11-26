@@ -109,8 +109,9 @@ def main() -> None:
             ext = ".txt"
 
         out_path = out_dir / f"{profile}{ext}"
-        out_path.write_text(content, encoding="utf-8")
-        print(f"  - wrote {out_path}")
+            out_path.write_text(content, encoding="utf-8")
+        size = out_path.stat().st_size
+        print(f"  - wrote {out_path} ({size} bytes)")
 
     print("Done.")
 
