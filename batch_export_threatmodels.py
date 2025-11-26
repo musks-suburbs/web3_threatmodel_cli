@@ -55,7 +55,7 @@ def run_list_profiles(app_path: Path) -> List[str]:
     lines = [l.strip() for l in result.stdout.splitlines()]
     # simple filter: non-empty & not comments
     profiles = [l for l in lines if l and not l.startswith("#")]
-    return profiles
+    return sorted(set(profiles))
 
 
 def run_profile(app_path: Path, profile: str) -> str:
