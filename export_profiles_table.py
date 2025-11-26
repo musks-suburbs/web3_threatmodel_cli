@@ -16,6 +16,11 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--no-escape-pipe",
+        action="store_true",
+        help="Disable escaping of '|' characters in profile names/descriptions.",
+    )
     parser.add_argument(
         "--output",
         "-o",
