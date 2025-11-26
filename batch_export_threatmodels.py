@@ -80,6 +80,7 @@ def wrap_markdown(profile: str, body: str) -> str:
 
 
 def main() -> None:
+    """Export all profiles from app.py into markdown or text files."""
     args = parse_args()
     app_path = Path(args.app_path)
     out_dir = Path(args.out_dir)
