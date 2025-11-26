@@ -111,6 +111,7 @@ def colorize(line: str, no_color: bool) -> str:
 
 
 def main() -> None:
+    """Entry point for the profile comparison CLI."""
     args = parse_args()
     app_path = Path(args.app_path)
 
