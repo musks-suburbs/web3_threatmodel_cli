@@ -66,7 +66,9 @@ python app.py --profile zama --section assets
 Print only the mitigations section for a soundness focused protocol lab:
 python app.py --profile soundness --section mitigations
 
-
+```markdown
+Use `--ignore-case` to match `MEV`, `mev`, `Mev`, etc.
+```
 ## Output
 
 The script prints plain text describing the selected profile. For a full threat model you will see:
