@@ -79,7 +79,7 @@ def run_list_profiles(app_path: Path) -> List[str]:
     profiles = [l for l in lines if l and not l.startswith("#")]
     return profiles
 
-
+# --- Execution helpers: call app.py for a given profile/section ---
 def run_profile(
     app_path: Path,
     profile: str,
