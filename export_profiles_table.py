@@ -16,6 +16,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--output-dir",
+        type=str,
+        help="Directory to write the output file into.",
+    )
+
     parser.add_argument(
         "--output",
         "-o",
@@ -97,6 +103,12 @@ def main() -> None:
     if not profiles:
         print("No profiles found in `app.py --list-profiles` output.", file=sys.stderr)
         sys.exit(1)
+    output_path = args.output
+    if args.output_dir and output_path not in ("", "-"):
+        output_path = str(Path(args.output_dir) / output_path)
+
+    markdown = make_markdown_table(...)
+    write_output(markdown, output_path)
 
     markdown = make_markdown_table(profiles)
     write_output(markdown, args.output)
