@@ -16,6 +16,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--no-sort",
+        action="store_true",
+        help="Do not sort profiles alphabetically (keep original order).",
+    )
+
     parser.add_argument(
         "--output",
         "-o",
@@ -87,6 +93,12 @@ def write_output(text: str, output: str) -> None:
     except OSError as e:
         print(f"ERROR: failed to write output file {path}: {e}", file=sys.stderr)
         sys.exit(1)
+def run_list_profiles(app_path: Path, sort_profiles: bool = True) -> List[str]:
+    ...
+    profiles = [line for line in lines if line and not line.startswith("#")]
+    if sort_profiles:
+        profiles = sorted(set(profiles))
+    return profiles
 
 
 def main() -> None:
