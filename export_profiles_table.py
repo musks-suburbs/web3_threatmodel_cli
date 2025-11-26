@@ -100,6 +100,12 @@ def main() -> None:
 
     markdown = make_markdown_table(profiles)
     write_output(markdown, args.output)
+        if output == "-" or output == "":
+        sys.stdout.write(text)
+        if not text.endswith("\n"):
+            sys.stdout.write("\n")
+        return
+
 
 
 if __name__ == "__main__":
