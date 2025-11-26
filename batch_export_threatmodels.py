@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
+"""Export all threatmodel profiles from app.py into individual files.
 
+Runs `app.py --list-profiles` and `app.py --profile <name>` for each profile.
+"""
 from __future__ import annotations
 
 import argparse
