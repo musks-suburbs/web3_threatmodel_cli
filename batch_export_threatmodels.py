@@ -13,6 +13,12 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Export all threatmodel profiles to individual files."
     )
+        parser.add_argument(
+        "--list-command-only",
+        action="store_true",
+        help="Print the command that would be used to list profiles, then exit.",
+    )
+
     parser.add_argument(
         "--app-path",
         type=str,
@@ -83,6 +89,10 @@ def main() -> None:
     args = parse_args()
     app_path = Path(args.app_path)
     out_dir = Path(args.out_dir)
+    if args.list_command_only:
+        cmd = [args.python, str(app_path), "--list-profiles"]
+        print(" ".join(cmd))
+        return
 
     profiles = run_list_profiles(app_path)
     if not profiles:
