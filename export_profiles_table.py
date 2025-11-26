@@ -46,9 +46,8 @@ def run_list_profiles(app_path: Path) -> List[str]:
             print("stderr:", result.stderr, file=sys.stderr)
         sys.exit(result.returncode)
 
-    lines = [l.strip() for l in result.stdout.splitlines()]
-    # Filter out empty / separator lines
-    profiles = [l for l in lines if l and not l.startswith("#")]
+      lines = [line.strip() for line in result.stdout.splitlines()]
+    profiles = [line for line in lines if line and not line.startswith("#")]
     return profiles
 
 
