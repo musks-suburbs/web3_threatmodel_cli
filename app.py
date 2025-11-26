@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""
+web3_threatmodel_cli
+
+Generate high-level threat models for Web3 privacy / soundness profiles
+(Aztec-style rollup, Zama-style FHE stack, soundness-focused lab).
+"""
+import argparse
+from dataclasses import dataclass, field
+...
+
 import argparse
 from dataclasses import dataclass, field
 from typing import List, Dict
