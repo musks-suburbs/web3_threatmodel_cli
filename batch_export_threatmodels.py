@@ -8,6 +8,12 @@ import sys
 from pathlib import Path
 from typing import List
 
+EXIT_OK = 0
+EXIT_APP_NOT_FOUND = 1
+EXIT_LIST_PROFILES_FAILED = 2
+EXIT_NO_PROFILES = 3
+EXIT_EXPORT_FAILED = 4
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -50,7 +56,7 @@ def run_list_profiles(app_path: Path) -> List[str]:
         print("ERROR: `app.py --list-profiles` failed.", file=sys.stderr)
         if result.stderr:
             print(result.stderr, file=sys.stderr)
-        sys.exit(result.returncode)
+     sys.exit(EXIT_APP_NOT_FOUND)
 
     lines = [l.strip() for l in result.stdout.splitlines()]
     # simple filter: non-empty & not comments
@@ -87,7 +93,7 @@ def main() -> None:
     profiles = run_list_profiles(app_path)
     if not profiles:
         print("No profiles found; nothing to export.", file=sys.stderr)
-        sys.exit(1)
+          sys.exit(EXIT_NO_PROFILES)
 
     out_dir.mkdir(parents=True, exist_ok=True)
 
