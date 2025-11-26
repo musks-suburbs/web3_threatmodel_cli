@@ -5,6 +5,11 @@ import sys
 from pathlib import Path
 from typing import List
 
+EXIT_OK = 0
+EXIT_APP_NOT_FOUND = 1
+EXIT_LIST_PROFILES_FAILED = 2
+EXIT_NO_PROFILES = 3
+EXIT_WRITE_FAILED = 4
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -28,8 +33,9 @@ def parse_args() -> argparse.Namespace:
 
 def run_list_profiles(app_path: Path) -> List[str]:
     if not app_path.is_file():
+   # in run_list_profiles
         print(f"ERROR: app.py not found at {app_path}", file=sys.stderr)
-        sys.exit(1)
+        sys.exit(EXIT_APP_NOT_FOUND)
 
     cmd = [sys.executable, str(app_path), "--list-profiles"]
 
@@ -96,7 +102,7 @@ def main() -> None:
     profiles = run_list_profiles(app_path)
     if not profiles:
         print("No profiles found in `app.py --list-profiles` output.", file=sys.stderr)
-        sys.exit(1)
+        sys.exit(EXIT_NO_PROFILES)
 
     markdown = make_markdown_table(profiles)
     write_output(markdown, args.output)
