@@ -16,6 +16,13 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--profile-prefix",
+        type=str,
+        default="",
+        help="Only include profiles whose names start with this prefix.",
+    )
+
     parser.add_argument(
         "--output",
         "-o",
@@ -97,6 +104,8 @@ def main() -> None:
     if not profiles:
         print("No profiles found in `app.py --list-profiles` output.", file=sys.stderr)
         sys.exit(1)
+    if args.profile_prefix:
+        profiles = [p for p in profiles if p.startswith(args.profile_prefix)]
 
     markdown = make_markdown_table(profiles)
     write_output(markdown, args.output)
