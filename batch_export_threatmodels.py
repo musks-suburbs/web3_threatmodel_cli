@@ -19,6 +19,13 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--encoding",
+        type=str,
+        default="utf-8",
+        help="Encoding to use for output files (default: utf-8).",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
@@ -83,6 +90,9 @@ def main() -> None:
     args = parse_args()
     app_path = Path(args.app_path)
     out_dir = Path(args.out_dir)
+        if not args.dry_run:
+            out_path.write_text(content, encoding=args.encoding)
+            print(f"  - wrote {out_path}")
 
     profiles = run_list_profiles(app_path)
     if not profiles:
