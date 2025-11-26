@@ -1,4 +1,5 @@
 # web3_threatmodel_cli
+You can also symlink `scripts/` to `tools/` if your environment expects that.
 
 This repository contains a tiny command line tool that prints ready to use threat model outlines for Web3 privacy projects. Profiles are loosely inspired by ecosystems such as Aztec style zero knowledge rollups, Zama style fully homomorphic encryption stacks, and soundness oriented protocol labs.
 
