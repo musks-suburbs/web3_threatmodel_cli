@@ -7,8 +7,14 @@ from typing import List
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Export web3_threatmodel_cli profiles as a Markdown table."
+      parser = argparse.ArgumentParser(
+        description="Export web3_threatmodel_cli profiles as a Markdown table.",
+        epilog=(
+            "Examples:\n"
+            "  export_profiles_md.py\n"
+            "  export_profiles_md.py --app-path ./app.py -o profiles.md\n"
+            "  export_profiles_md.py --profiles-only\n"
+        ),
     )
     parser.add_argument(
         "--app-path",
