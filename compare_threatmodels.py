@@ -8,6 +8,10 @@ import difflib
 from pathlib import Path
 from typing import Optional
 
+RESET = "\033[0m"
+GREEN = "\033[32m"
+RED = "\033[31m"
+CYAN = "\033[36m"
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -138,6 +142,18 @@ def main() -> None:
         lineterm="",
         n=args.context_lines,
     )
+def colorize(line: str, no_color: bool) -> str:
+    """Very simple colorizer for diff output."""
+    if no_color:
+        return line
+
+    if line.startswith("+") and not line.startswith("+++"):
+        return f"{GREEN}{line}{RESET}"
+    if line.startswith("-") and not line.startswith("---"):
+        return f"{RED}{line}{RESET}"
+    if line.startswith("@@"):
+        return f"{CYAN}{line}{RESET}"
+    return line
 
     any_output = False
     for line in diff:
