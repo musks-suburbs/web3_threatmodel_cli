@@ -76,7 +76,9 @@ def run_profile(app_path: Path, profile: str) -> str:
 
 def wrap_markdown(profile: str, body: str) -> str:
     body = body.rstrip("\n")
+    body = body.replace("```", "``\\`")  # simple escape
     return f"# Threat model: `{profile}`\n\n```text\n{body}\n```\n"
+
 
 
 def main() -> None:
