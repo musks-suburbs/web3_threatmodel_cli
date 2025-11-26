@@ -19,6 +19,13 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--profile-contains",
+        type=str,
+        default="",
+        help="Only export profiles whose names contain this substring.",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
@@ -93,6 +100,8 @@ def main() -> None:
 
     print(f"Found profiles: {', '.join(profiles)}")
     print(f"Writing exports to: {out_dir.resolve()}")
+    if args.profile_contains:
+        profiles = [p for p in profiles if args.profile_contains in p]
 
     for profile in profiles:
         try:
