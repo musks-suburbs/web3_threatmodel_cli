@@ -19,6 +19,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--fail-on-profile-error",
+        action="store_true",
+        help="Exit immediately if exporting a profile fails.",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
@@ -97,9 +103,13 @@ def main() -> None:
     for profile in profiles:
         try:
             text = run_profile(app_path, profile)
-        except Exception as e:  # noqa: BLE001
+               except Exception as e:  # noqa: BLE001
             print(f"ERROR exporting profile '{profile}': {e}", file=sys.stderr)
+            failed += 1
+            if args.fail_on_profile_error:
+                sys.exit(EXIT_EXPORT_FAILED)
             continue
+
 
         if args.format == "md":
             content = wrap_markdown(profile, text)
