@@ -19,6 +19,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--profile-command-only",
+        type=str,
+        help="Print the command that would be used for this profile, then exit.",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
@@ -83,6 +89,10 @@ def main() -> None:
     args = parse_args()
     app_path = Path(args.app_path)
     out_dir = Path(args.out_dir)
+    if args.profile_command_only:
+        cmd = [args.python, str(app_path), "--profile", args.profile_command_only]
+        print(" ".join(cmd))
+        return
 
     profiles = run_list_profiles(app_path)
     if not profiles:
