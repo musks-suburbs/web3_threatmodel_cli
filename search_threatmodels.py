@@ -102,7 +102,11 @@ def run_profile(
         )
     return result.stdout
 
-
+for line in text.splitlines():
+    stripped = line.lstrip()
+    if stripped.startswith("#") or stripped.startswith("//"):
+        continue
+    # existing match logic
 def search_text(
     text: str,
     query: str,
