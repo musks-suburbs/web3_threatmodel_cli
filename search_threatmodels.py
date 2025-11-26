@@ -15,6 +15,18 @@ def parse_args() -> argparse.Namespace:
             "Uses app.py --list-profiles and app.py --profile <name> under the hood."
         )
     )
+    # parse_args
+parser.add_argument(
+    "--profiles-only",
+    action="store_true",
+    help="Only list which profiles match, not the lines.",
+)
+
+# in main(), inside the `for profile in profiles:` loop
+if args.profiles_only:
+    print(profile)
+    continue
+
     parser.add_argument(
         "query",
         help="Text to search for in the generated threatmodels.",
