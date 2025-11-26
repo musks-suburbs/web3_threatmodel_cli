@@ -8,7 +8,7 @@ import difflib
 from pathlib import Path
 from typing import Optional
 
-
+VERSION = "0.1.0"
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
@@ -45,6 +45,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Case-insensitive comparison (lowercases both sides before diff).",
     )
+        parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {VERSION}",
+    )
+
     parser.add_argument(
         "--context-lines",
         "-C",
