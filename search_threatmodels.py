@@ -34,6 +34,12 @@ def parse_args() -> argparse.Namespace:
             "Can be given multiple times. If omitted, all profiles are searched."
         ),
     )
+        parser.add_argument(
+        "--debug-cmd",
+        action="store_true",
+        help="Print underlying app.py commands before running them.",
+    )
+
     parser.add_argument(
         "--section",
         "-s",
@@ -84,10 +90,13 @@ def run_profile(
     app_path: Path,
     profile: str,
     section: Optional[str] = None,
+    debug_cmd: bool = False,
 ) -> str:
     cmd = [sys.executable, str(app_path), "--profile", profile]
     if section:
         cmd.extend(["--section", section])
+    text_a = run_profile(app_path, args.profile_a, section=section, debug_cmd=args.debug_cmd)
+    text_b = run_profile(app_path, args.profile_b, section=section, debug_cmd=args.debug_cmd)
 
     result = subprocess.run(
         cmd,
@@ -102,6 +111,8 @@ def run_profile(
         )
     return result.stdout
 
+    if debug_cmd:
+        print("DEBUG:", " ".join(cmd), file=sys.stderr)
 
 def search_text(
     text: str,
