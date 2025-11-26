@@ -16,6 +16,13 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--description-template",
+        type=str,
+        default="{name}",
+        help="Template for the Description column (default: '{name}').",
+    )
+
     parser.add_argument(
         "--output",
         "-o",
@@ -52,7 +59,7 @@ def run_list_profiles(app_path: Path) -> List[str]:
     return profiles
 
 
-def make_markdown_table(profiles: List[str]) -> str:
+def make_markdown_table(profiles: List[str], backticks: bool = True, description_template: str = "{name}") -> str:
     """
     Very simple Markdown table:
 
@@ -67,11 +74,15 @@ def make_markdown_table(profiles: List[str]) -> str:
     lines.append("| Profile | Description |")
     lines.append("| ------- | ----------- |")
 
-    for p in profiles:
-        # You can customize this: right now Description == name
-        lines.append(f"| `{p}` | `{p}` |")
-
-    return "\n".join(lines) + "\n"
+       for p in profiles:
+        raw_desc = description_template.format(name=p)
+        if backticks:
+            name = f"`{p}`"
+            desc = f"`{raw_desc}`"
+        else:
+            name = p
+            desc = raw_desc
+        lines.append(f"| {name} | {desc} |")
 
 
 def write_output(text: str, output: str) -> None:
