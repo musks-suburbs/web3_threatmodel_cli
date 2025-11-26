@@ -203,6 +203,12 @@ def main() -> None:
         help="Select which profile to use (aztec, zama, soundness).",
     )
     parser.add_argument(
+    "--help-sections",
+    action="store_true",
+    help="Show available section names for profiles and exit.",
+)
+
+    parser.add_argument(
         "--section",
         type=str,
         choices=["overview", "assets", "adversaries", "attacks", "mitigations"],
