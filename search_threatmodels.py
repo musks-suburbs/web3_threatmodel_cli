@@ -119,6 +119,8 @@ def search_text(
             if query in line:
                 matches.append(line)
     return matches
+count = len(matches)
+print(f"{header} (matches: {count})")
 
 
 def main() -> None:
