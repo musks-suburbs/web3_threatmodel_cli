@@ -107,7 +107,8 @@ def main() -> None:
         else:
             content = text
             ext = ".txt"
-
+DEFAULT_APP_PATH = "app.py"
+DEFAULT_OUT_DIR = "exports"
         out_path = out_dir / f"{profile}{ext}"
         out_path.write_text(content, encoding="utf-8")
         print(f"  - wrote {out_path}")
