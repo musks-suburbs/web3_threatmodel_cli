@@ -109,7 +109,14 @@ def main() -> None:
             ext = ".txt"
 
         out_path = out_dir / f"{profile}{ext}"
-        out_path.write_text(content, encoding="utf-8")
+              if not args.dry_run:
+            try:
+                out_path.write_text(content, encoding=args.encoding)
+            except OSError as e:
+                print(f"ERROR writing {out_path}: {e}", file=sys.stderr)
+                continue
+            print(f"  - wrote {out_path}")
+
         print(f"  - wrote {out_path}")
 
     print("Done.")
