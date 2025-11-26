@@ -112,7 +112,8 @@ def main() -> None:
         out_path.write_text(content, encoding="utf-8")
         print(f"  - wrote {out_path}")
 
-    print("Done.")
+    print(f"Done. Files are in: {out_dir.resolve()}")
+
 
 
 if __name__ == "__main__":
