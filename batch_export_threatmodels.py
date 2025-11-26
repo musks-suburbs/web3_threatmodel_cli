@@ -19,6 +19,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--out-dir-exists-ok",
+        action="store_true",
+        help="(Deprecated) Output directory may already exist (current default).",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
