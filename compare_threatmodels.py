@@ -52,6 +52,12 @@ def parse_args() -> argparse.Namespace:
         default=3,
         help="Number of context lines for the unified diff (default: 3).",
     )
+        parser.add_argument(
+        "--strip-trailing-space",
+        action="store_true",
+        help="Strip trailing whitespace from lines before comparing.",
+    )
+
     parser.add_argument(
         "--no-color",
         action="store_true",
