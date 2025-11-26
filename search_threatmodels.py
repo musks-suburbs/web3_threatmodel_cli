@@ -20,6 +20,12 @@ def parse_args() -> argparse.Namespace:
         help="Text to search for in the generated threatmodels.",
     )
     parser.add_argument(
+    "--version",
+    action="version",
+    version="search_threatmodels 0.1.0",
+)
+
+    parser.add_argument(
         "--app-path",
         type=str,
         default="app.py",
