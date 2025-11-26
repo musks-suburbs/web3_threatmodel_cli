@@ -40,11 +40,16 @@ def run_list_profiles(app_path: Path) -> List[str]:
         sys.exit(1)
 
     cmd = [sys.executable, str(app_path), "--list-profiles"]
-    result = subprocess.run(
-        cmd,
-        text=True,
-        capture_output=True,
-        check=False,
+      try:
+        result = subprocess.run(
+            cmd,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+    except OSError as e:
+        raise RuntimeError(f"Failed to run {app_path}: {e}") from e
+
     )
     if result.returncode != 0:
         print("ERROR: `app.py --list-profiles` failed.", file=sys.stderr)
