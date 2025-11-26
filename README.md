@@ -66,6 +66,13 @@ python app.py --profile zama --section assets
 Print only the mitigations section for a soundness focused protocol lab:
 python app.py --profile soundness --section mitigations
 
+### Searching threatmodels
+
+Use `search_threatmodels.py` to search generated profiles:
+
+```bash
+python search_threatmodels.py "front-running"
+python search_threatmodels.py "MEV" --ignore-case --section attack-surfaces
 
 ## Output
 
