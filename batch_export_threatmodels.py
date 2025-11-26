@@ -19,6 +19,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Allow overwriting existing files.",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
@@ -83,6 +89,11 @@ def main() -> None:
     args = parse_args()
     app_path = Path(args.app_path)
     out_dir = Path(args.out_dir)
+        out_path = out_dir / f"{profile}{ext}"
+
+        if out_path.exists() and not args.overwrite and not args.dry_run:
+            print(f"  - skipping existing file {out_path} (use --overwrite to override)", file=sys.stderr)
+            continue
 
     profiles = run_list_profiles(app_path)
     if not profiles:
