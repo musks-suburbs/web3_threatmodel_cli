@@ -16,6 +16,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--no-backticks",
+        action="store_true",
+        help="Do not wrap profile names/description in backticks.",
+    )
+
     parser.add_argument(
         "--output",
         "-o",
@@ -52,7 +58,7 @@ def run_list_profiles(app_path: Path) -> List[str]:
     return profiles
 
 
-def make_markdown_table(profiles: List[str]) -> str:
+def make_markdown_table(profiles: List[str], backticks: bool = True) -> str:
     """
     Very simple Markdown table:
 
@@ -67,13 +73,14 @@ def make_markdown_table(profiles: List[str]) -> str:
     lines.append("| Profile | Description |")
     lines.append("| ------- | ----------- |")
 
-    for p in profiles:
-        # You can customize this: right now Description == name
-        lines.append(f"| `{p}` | `{p}` |")
-
-    return "\n".join(lines) + "\n"
-
-
+     for p in profiles:
+        if backticks:
+            name = f"`{p}`"
+            desc = f"`{p}`"
+        else:
+            name = p
+            desc = p
+        lines.append(f"| {name} | {desc} |")
 def write_output(text: str, output: str) -> None:
     if output == "-" or output == "":
         sys.stdout.write(text)
@@ -98,7 +105,8 @@ def main() -> None:
         print("No profiles found in `app.py --list-profiles` output.", file=sys.stderr)
         sys.exit(1)
 
-    markdown = make_markdown_table(profiles)
+       markdown = make_markdown_table(profiles, backticks=not args.no_backticks)
+
     write_output(markdown, args.output)
 
 
