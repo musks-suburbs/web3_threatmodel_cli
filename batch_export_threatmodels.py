@@ -35,6 +35,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def run_list_profiles(app_path: Path) -> List[str]:
+    """Run `app.py --list-profiles` and return a list of profile names."""
     if not app_path.is_file():
         print(f"ERROR: app.py not found at {app_path}", file=sys.stderr)
         sys.exit(1)
