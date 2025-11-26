@@ -19,6 +19,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--version",
+        action="version",
+        version="export_profiles 1.0.0",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
