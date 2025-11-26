@@ -73,6 +73,9 @@ def run_profile(app_path: Path, profile: str) -> str:
         )
     return result.stdout
 
+def safe_filename(name: str) -> str:
+    """Convert a profile name into a filesystem-safe filename stem."""
+    return "".join(c if c.isalnum() or c in ("-", "_") else "_" for c in name)
 
 def wrap_markdown(profile: str, body: str) -> str:
     body = body.rstrip("\n")
@@ -108,7 +111,9 @@ def main() -> None:
             content = text
             ext = ".txt"
 
-        out_path = out_dir / f"{profile}{ext}"
+               stem = safe_filename(profile)
+        out_path = out_dir / f"{args.prefix}{stem}{args.suffix}{ext}"
+
         out_path.write_text(content, encoding="utf-8")
         print(f"  - wrote {out_path}")
 
