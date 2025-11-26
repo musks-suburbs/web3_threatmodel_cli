@@ -97,7 +97,8 @@ def main() -> None:
     if not profiles:
         print("No profiles found in `app.py --list-profiles` output.", file=sys.stderr)
         sys.exit(1)
-
+    else:
+        debug(f"First profile: {profiles[0]}")
     markdown = make_markdown_table(profiles)
     write_output(markdown, args.output)
 
