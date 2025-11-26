@@ -3,6 +3,8 @@ import argparse
 from dataclasses import dataclass, field
 from typing import List, Dict
 
+# near the top, after ThreatModel definition
+SECTION_CHOICES = ["overview", "assets", "adversaries", "attacks", "mitigations"]
 
 @dataclass
 class ThreatModel:
@@ -201,6 +203,12 @@ def main() -> None:
         type=str,
         choices=["aztec", "zama", "soundness"],
         help="Select which profile to use (aztec, zama, soundness).",
+    )
+       parser.add_argument(
+        "--section",
+        type=str,
+        choices=SECTION_CHOICES,
+        help="Print only a single section instead of the full threat model.",
     )
     parser.add_argument(
         "--section",
