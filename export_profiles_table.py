@@ -91,7 +91,9 @@ def write_output(text: str, output: str) -> None:
 
 def main() -> None:
     args = parse_args()
-    app_path = Path(args.app_path)
+        app_path = Path(args.app_path)
+    if app_path.is_dir():
+        app_path = app_path / "app.py"
 
     profiles = run_list_profiles(app_path)
     if not profiles:
