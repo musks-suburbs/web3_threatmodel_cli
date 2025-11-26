@@ -83,6 +83,8 @@ def main() -> None:
     args = parse_args()
     app_path = Path(args.app_path)
     out_dir = Path(args.out_dir)
+    success = 0
+    failed = 0
 
     profiles = run_list_profiles(app_path)
     if not profiles:
@@ -107,7 +109,7 @@ def main() -> None:
         else:
             content = text
             ext = ".txt"
-
+ print(f"Export summary: {success} succeeded, {failed} failed.")
         out_path = out_dir / f"{profile}{ext}"
         out_path.write_text(content, encoding="utf-8")
         print(f"  - wrote {out_path}")
