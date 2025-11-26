@@ -20,7 +20,7 @@ Rather than connecting to a node or blockchain network, the script focuses entir
 
 You can generate a full threat model or a single section for quick copy and paste into documents, wikis, or issue trackers.
 
-
+### 22. Add `scripts/` directory
 ## Profiles
 
 The tool currently provides three profiles.
