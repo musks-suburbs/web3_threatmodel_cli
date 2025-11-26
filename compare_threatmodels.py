@@ -20,6 +20,12 @@ def parse_args() -> argparse.Namespace:
         "profile_a",
         help="Name of the first profile to compare.",
     )
+        parser.add_argument(
+        "--list-profiles",
+        action="store_true",
+        help="List available profiles using app.py and exit.",
+    )
+
     parser.add_argument(
         "profile_b",
         help="Name of the second profile to compare.",
@@ -59,6 +65,20 @@ def parse_args() -> argparse.Namespace:
     )
     return parser.parse_args()
 
+def list_profiles(app_path: Path) -> None:
+    if not app_path.is_file():
+        print(f"ERROR: app.py not found at {app_path}", file=sys.stderr)
+        sys.exit(1)
+
+    cmd = [sys.executable, str(app_path), "--list-profiles"]
+    result = subprocess.run(cmd, text=True, capture_output=True, check=False)
+    if result.returncode != 0:
+        print("ERROR: `app.py --list-profiles` failed.", file=sys.stderr)
+        if result.stderr:
+            print(result.stderr, file=sys.stderr)
+        sys.exit(result.returncode)
+
+    print(result.stdout.rstrip("\n"))
 
 def run_profile(
     app_path: Path,
@@ -113,7 +133,9 @@ def colorize(line: str, no_color: bool) -> str:
 def main() -> None:
     args = parse_args()
     app_path = Path(args.app_path)
-
+    if args.list_profiles:
+        list_profiles(app_path)
+        return
     section = args.section
 
     # Fetch both profiles
