@@ -16,6 +16,7 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+    Maybe you don’t want empty to be an error.
     parser.add_argument(
         "--output",
         "-o",
@@ -52,7 +53,7 @@ def run_list_profiles(app_path: Path) -> List[str]:
     return profiles
 
 
-def make_markdown_table(profiles: List[str]) -> str:
+def make_markdown_table(..., min_width_profile: int = 0, ...) -> str:
     """
     Very simple Markdown table:
 
@@ -68,6 +69,8 @@ def make_markdown_table(profiles: List[str]) -> str:
     lines.append("| ------- | ----------- |")
 
     for p in profiles:
+        padded = p.ljust(min_width_profile) if min_width_profile > 0 else p
+        raw_desc = description_template.format(name=padded)
         # You can customize this: right now Description == name
         lines.append(f"| `{p}` | `{p}` |")
 
