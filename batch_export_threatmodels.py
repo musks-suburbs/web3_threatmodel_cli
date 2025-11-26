@@ -8,7 +8,11 @@ import sys
 from pathlib import Path
 from typing import List
 
-
+DEBUG = False
+def debug(msg: str) -> None:
+    if DEBUG:
+        print(f"[DEBUG] {msg}", file=sys.stderr)
+        
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Export all threatmodel profiles to individual files."
@@ -19,6 +23,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Enable debug output.",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
@@ -93,7 +103,10 @@ def main() -> None:
 
     print(f"Found profiles: {', '.join(profiles)}")
     print(f"Writing exports to: {out_dir.resolve()}")
-
+   global DEBUG
+    DEBUG = args.debug
+    debug(f"Using app_path={app_path}")
+    debug(f"Using out_dir={out_dir}")
     for profile in profiles:
         try:
             text = run_profile(app_path, profile)
