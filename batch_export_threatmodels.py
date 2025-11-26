@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import argparse
 import subprocess
 import sys
@@ -13,16 +14,17 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Export all threatmodel profiles to individual files."
     )
-    parser.add_argument(
+     parser.add_argument(
         "--app-path",
         type=str,
-        default="app.py",
+        default=os.getenv("THREATMODEL_APP_PATH", "app.py"),
         help="Path to app.py (default: ./app.py).",
     )
+    
     parser.add_argument(
         "--out-dir",
         type=str,
-        default="exports",
+        default=os.getenv("THREATMODEL_OUT_DIR", "exports"),
         help="Directory to write files into (default: ./exports).",
     )
     parser.add_argument(
