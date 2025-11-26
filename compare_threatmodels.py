@@ -20,6 +20,12 @@ def parse_args() -> argparse.Namespace:
         "profile_a",
         help="Name of the first profile to compare.",
     )
+        parser.add_argument(
+        "--no-header",
+        action="store_true",
+        help="Hide the first diff header lines (---/+++).",
+    )
+
     parser.add_argument(
         "profile_b",
         help="Name of the second profile to compare.",
@@ -100,6 +106,11 @@ def colorize(line: str, no_color: bool) -> str:
     GREEN = "\033[32m"
     RED = "\033[31m"
     CYAN = "\033[36m"
+    for line in diff:
+        if args.no_header and (line.startswith("---") or line.startswith("+++")):
+            continue
+        any_output = True
+        print(colorize(line, args.no_color))
 
     if line.startswith("+") and not line.startswith("+++"):
         return f"{GREEN}{line}{RESET}"
