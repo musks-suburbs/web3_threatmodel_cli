@@ -20,6 +20,21 @@ def parse_args() -> argparse.Namespace:
         help="Text to search for in the generated threatmodels.",
     )
     parser.add_argument(
+    "--max-matches",
+    type=int,
+    help="Maximum lines to show per profile.",
+)
+
+# when printing matches
+shown = 0
+for line in matches:
+    print(f"  {line}")
+    shown += 1
+    if args.max_matches is not None and shown >= args.max_matches:
+        print("  ... (truncated)")
+        break
+
+    parser.add_argument(
         "--app-path",
         type=str,
         default="app.py",
