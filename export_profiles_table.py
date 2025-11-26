@@ -16,6 +16,13 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--markdown-format",
+        choices=["generic", "github", "gitlab"],
+        default="generic",
+        help="Markdown flavour (currently all behave the same).",
+    )
+
     parser.add_argument(
         "--output",
         "-o",
