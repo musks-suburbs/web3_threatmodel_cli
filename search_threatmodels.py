@@ -123,6 +123,9 @@ def search_text(
 
 def main() -> None:
     args = parse_args()
+    if not args.query.strip():
+    print("ERROR: query cannot be empty", file=sys.stderr)
+    sys.exit(1)
     app_path = Path(args.app_path)
 
     try:
