@@ -74,7 +74,8 @@ def run_profile(app_path: Path, profile: str) -> str:
     return result.stdout
 
 
-def wrap_markdown(profile: str, body: str) -> str:
+ddef wrap_markdown(profile: str, body: str) -> str:
+    """Wrap a plain text threat model in a Markdown heading + code block."""
     body = body.rstrip("\n")
     return f"# Threat model: `{profile}`\n\n```text\n{body}\n```\n"
 
