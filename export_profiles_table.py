@@ -81,10 +81,12 @@ def write_output(text: str, output: str) -> None:
             sys.stdout.write("\n")
         return
 
-    path = Path(output)
+     path = Path(output)
     try:
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text, encoding="utf-8")
     except OSError as e:
+
         print(f"ERROR: failed to write output file {path}: {e}", file=sys.stderr)
         sys.exit(1)
 
