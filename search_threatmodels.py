@@ -124,7 +124,7 @@ def search_text(
 def main() -> None:
     args = parse_args()
     app_path = Path(args.app_path)
-
+query = " ".join(args.query.split())
     try:
         all_profiles = run_list_profiles(app_path)
     except SystemExit:
