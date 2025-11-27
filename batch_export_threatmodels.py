@@ -13,6 +13,13 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Export all threatmodel profiles to individual files."
     )
+        parser.add_argument(
+        "--suffix",
+        type=str,
+        default="",
+        help="Suffix to append to each filename before the extension.",
+    )
+
     parser.add_argument(
         "--app-path",
         type=str,
@@ -108,7 +115,7 @@ def main() -> None:
             content = text
             ext = ".txt"
 
-        out_path = out_dir / f"{profile}{ext}"
+              out_path = out_dir / f"{profile}{args.suffix}{ext}"
         out_path.write_text(content, encoding="utf-8")
         print(f"  - wrote {out_path}")
 
