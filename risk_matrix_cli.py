@@ -195,6 +195,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def print_human(profile: RiskProfile) -> None:
+    """Print a human-readable risk matrix for the given profile."""
     print("🔐 risk_matrix_cli")
     print(f"Profile : {profile.name} ({profile.key})")
     print("")
