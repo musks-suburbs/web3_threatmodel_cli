@@ -21,6 +21,10 @@ __all__ = [
 
 @dataclass
 class RiskCell:
+    """A single qualitative risk entry in the risk matrix.
+
+    Each cell captures an asset, the main threat, and its likelihood/impact.
+    """
     asset: str
     threat: str
     likelihood: str  # low / medium / high
@@ -30,6 +34,7 @@ class RiskCell:
 
 @dataclass
 class RiskProfile:
+    """A named risk profile consisting of a summary and a list of risk cells."""
     key: str
     name: str
     summary: str
