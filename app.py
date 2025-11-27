@@ -139,6 +139,7 @@ def list_profiles(models: Dict[str, ThreatModel]) -> None:
     print("Use --profile with one of these keys to print a threat model.")
 
 
+
 def section_title(section: str) -> str:
     mapping = {
         "overview": "Overview",
