@@ -12,6 +12,8 @@ class ThreatModel:
     attack_surfaces: List[str] = field(default_factory=list)
     mitigations: List[str] = field(default_factory=list)
 
+PROFILE_KEYS = ["aztec", "zama", "soundness"]
+SECTION_KEYS = ["overview", "assets", "adversaries", "attacks", "mitigations"]
 
 def make_models() -> Dict[str, ThreatModel]:
     return {
@@ -194,17 +196,19 @@ def main() -> None:
             "ecosystems such as Aztec, Zama, and soundness-focused research labs."
         ),
     )
-    parser.add_argument(
+     parser.add_argument(
         "--profile",
         type=str,
-        choices=["aztec", "zama", "soundness"],
+        choices=PROFILE_KEYS,
         help="Select which profile to use (aztec, zama, soundness).",
     )
     parser.add_argument(
         "--section",
         type=str,
-        choices=["overview", "assets", "adversaries", "attacks", "mitigations"],
+        choices=SECTION_KEYS,
         help="Print only a single section instead of the full threat model.",
+
+
     )
     parser.add_argument(
         "--list-profiles",
