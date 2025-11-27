@@ -9,6 +9,15 @@ import json
 from dataclasses import dataclass, asdict
 from typing import Dict, List, Any
 
+__version__ = "0.1.0"
+__all__ = [
+    "RiskCell",
+    "RiskProfile",
+    "PROFILES",
+    "parse_args",
+    "print_human",
+    "main",
+]
 
 @dataclass
 class RiskCell:
