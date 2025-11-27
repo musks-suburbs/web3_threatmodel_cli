@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from typing import List, Dict
 
-
+__version__ = "0.1.0"
 @dataclass
 class ThreatModel:
     key: str
@@ -202,6 +202,12 @@ def main() -> None:
         choices=PROFILE_KEYS,
         help="Select which profile to use (aztec, zama, soundness).",
     )
+        parser.add_argument(
+        "--version",
+        action="store_true",
+        help="Print version information and exit.",
+    )
+
     parser.add_argument(
         "--section",
         type=str,
@@ -234,6 +240,9 @@ def main() -> None:
         return
 
     model = models[args.profile]
+    if args.version:
+        print(f"web3_threatmodel_cli version {__version__}")
+        return
 
     if args.section:
         print(f"Threat model profile: {model.name}")
