@@ -16,6 +16,7 @@ PROFILE_KEYS = ["aztec", "zama", "soundness"]
 SECTION_KEYS = ["overview", "assets", "adversaries", "attacks", "mitigations"]
 
 def make_models() -> Dict[str, ThreatModel]:
+      """Construct and return the built-in Web3 threat model profiles."""
     return {
         "aztec": ThreatModel(
             key="aztec",
@@ -129,6 +130,7 @@ def make_models() -> Dict[str, ThreatModel]:
 
 
 def list_profiles(models: Dict[str, ThreatModel]) -> None:
+    """Print the list of available profile keys and their human names."""
     print("Available profiles related to Web3 privacy and soundness:")
     for key in sorted(models.keys()):
         model = models[key]
@@ -181,6 +183,7 @@ def print_section(model: ThreatModel, section: str) -> None:
 
 
 def print_full_model(model: ThreatModel) -> None:
+    """Print all sections of a given ThreatModel in a human-readable format."""
     print(f"Threat model profile: {model.name}")
     print("")
     print_section(model, "overview")
