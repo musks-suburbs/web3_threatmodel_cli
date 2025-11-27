@@ -7,6 +7,7 @@ from typing import List
 
 
 def parse_args() -> argparse.Namespace:
+    """Parse command-line arguments for the profile export tool."""
     parser = argparse.ArgumentParser(
         description="Export web3_threatmodel_cli profiles as a Markdown table."
     )
