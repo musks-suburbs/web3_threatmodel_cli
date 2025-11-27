@@ -39,6 +39,12 @@ def parse_args() -> argparse.Namespace:
             "attack-surfaces, mitigations). If omitted, the full threatmodel is compared."
         ),
     )
+        parser.add_argument(
+        "--show-summary",
+        action="store_true",
+        help="Show basic info about both profiles before the diff.",
+    )
+
     parser.add_argument(
         "--ignore-case",
         "-i",
@@ -138,6 +144,10 @@ def main() -> None:
         lineterm="",
         n=args.context_lines,
     )
+    if args.show_summary:
+        print(f"{args.profile_a}: {len(text_a.splitlines())} lines")
+        print(f"{args.profile_b}: {len(text_b.splitlines())} lines")
+        print("")
 
     any_output = False
     for line in diff:
