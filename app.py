@@ -246,8 +246,10 @@ MODELS: Dict[str, ThreatModel] = make_models()
         list_profiles(models)
         return
 
-    if not args.profile:
-        print("web3_threatmodel_cli - Web3 privacy threat model helper")
+       if not args.profile:
+        title = "web3_threatmodel_cli - Web3 privacy threat model helper"
+        # Bold if terminal supports ANSI; otherwise just print the plain title.
+        print(f"\033[1m{title}\033[0m")
         print("")
         list_profiles(models)
             print("Examples:")
@@ -256,6 +258,7 @@ MODELS: Dict[str, ThreatModel] = make_models()
         print("  python app.py --profile soundness --section mitigations")
         print("  python app.py --profile soundness")
         return
+
 
     model = models[args.profile]
     if args.version:
