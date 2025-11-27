@@ -238,7 +238,9 @@ def main() -> None:
     )
 
     args = parser.parse_args()
-    models = make_models()
+       models = MODELS
+
+MODELS: Dict[str, ThreatModel] = make_models()
 
     if args.list_profiles:
         list_profiles(models)
