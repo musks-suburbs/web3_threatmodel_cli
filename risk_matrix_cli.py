@@ -39,6 +39,7 @@ class RiskProfile:
     name: str
     summary: str
     matrix: List[RiskCell]
+JSONDict = Dict[str, Any]
 
 
 PROFILES: Dict[str, RiskProfile] = {
@@ -223,7 +224,8 @@ def main() -> None:
 
 
     if args.json:
-        payload: Dict[str, Any] = {
+                payload: JSONDict = {
+, Any] = {
             "profile": profile.key,
             "name": profile.name,
             "summary": profile.summary,
