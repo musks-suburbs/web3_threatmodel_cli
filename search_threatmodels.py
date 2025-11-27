@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 from typing import List, Optional
 
-
+__all__ = ["main"]
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
