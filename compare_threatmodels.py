@@ -146,6 +146,10 @@ def main() -> None:
 
     if not any_output:
         print("Profiles are identical (under the chosen options).")
+    # Exit status: 0 for identical, 1 for any difference
+    if any_output:
+        sys.exit(1)
+    sys.exit(0)
 
 
 if __name__ == "__main__":
