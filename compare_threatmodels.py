@@ -8,7 +8,10 @@ import difflib
 from pathlib import Path
 from typing import Optional
 
-
+def normalize_section(section: Optional[str]) -> Optional[str]:
+    if section == "attack-surfaces":
+        return "attacks"
+    return section
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
@@ -114,7 +117,7 @@ def main() -> None:
     args = parse_args()
     app_path = Path(args.app_path)
 
-    section = args.section
+  section = normalize_section(args.section)
 
     # Fetch both profiles
     text_a = run_profile(app_path, args.profile_a, section=section)
