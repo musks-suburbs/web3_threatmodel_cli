@@ -238,4 +238,6 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    # Allow running as a script: `python risk_matrix_cli.py`
     main()
+
