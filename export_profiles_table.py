@@ -16,6 +16,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--no-header",
+        action="store_true",
+        help="Do not include the Markdown header row.",
+    )
+
     parser.add_argument(
         "--output",
         "-o",
@@ -52,21 +58,11 @@ def run_list_profiles(app_path: Path) -> List[str]:
     return profiles
 
 
-def make_markdown_table(profiles: List[str]) -> str:
-    """
-    Very simple Markdown table:
-
-    | Profile | Description |
-    | ------- | ----------- |
-    | aztec   | aztec       |
-    | zama    | zama        |
-
-    You can later edit the Description column manually.
-    """
+def make_markdown_table(..., include_header: bool = True) -> str:
     lines = []
-    lines.append("| Profile | Description |")
-    lines.append("| ------- | ----------- |")
-
+    if include_header:
+        lines.append("| Profile | Description |")
+        lines.append("| ------- | ----------- |")
     for p in profiles:
         # You can customize this: right now Description == name
         lines.append(f"| `{p}` | `{p}` |")
@@ -98,7 +94,13 @@ def main() -> None:
         print("No profiles found in `app.py --list-profiles` output.", file=sys.stderr)
         sys.exit(1)
 
-    markdown = make_markdown_table(profiles)
+      markdown = make_markdown_table(
+        profiles,
+        backticks=not args.no_backticks,
+        description_template=args.description_template,
+        include_header=not args.no_header,
+    )
+
     write_output(markdown, args.output)
 
 
