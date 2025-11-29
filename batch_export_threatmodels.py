@@ -19,6 +19,13 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--profile-prefix",
+        type=str,
+        default="",
+        help="Only export profiles whose names start with this prefix.",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
@@ -85,6 +92,8 @@ def main() -> None:
     out_dir = Path(args.out_dir)
 
     profiles = run_list_profiles(app_path)
+if args.profile_prefix:
+        profiles = [p for p in profiles if p.startswith(args.profile_prefix)]
     if not profiles:
         print("No profiles found; nothing to export.", file=sys.stderr)
         sys.exit(1)
