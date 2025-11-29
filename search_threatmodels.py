@@ -15,6 +15,7 @@ def parse_args() -> argparse.Namespace:
             "Uses app.py --list-profiles and app.py --profile <name> under the hood."
         )
     )
+    Add --count-only flag
     parser.add_argument(
         "query",
         help="Text to search for in the generated threatmodels.",
