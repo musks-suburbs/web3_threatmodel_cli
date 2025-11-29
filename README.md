@@ -66,7 +66,11 @@ python app.py --profile zama --section assets
 Print only the mitigations section for a soundness focused protocol lab:
 python app.py --profile soundness --section mitigations
 
+Search only the "mitigations" section:
 
+```bash
+python scripts/search_threatmodels.py "replay" --section mitigations
+```
 ## Output
 
 The script prints plain text describing the selected profile. For a full threat model you will see:
