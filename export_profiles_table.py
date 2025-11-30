@@ -5,6 +5,8 @@ import sys
 from pathlib import Path
 from typing import List
 
+DEFAULT_APP_PATH = "app.py"
+DEFAULT_OUTPUT_PATH = "-"
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -13,14 +15,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--app-path",
         type=str,
-        default="app.py",
+             default=DEFAULT_APP_PATH,
         help="Path to app.py (default: ./app.py).",
     )
     parser.add_argument(
         "--output",
         "-o",
-        type=str,
-        default="-",
+        type=str,        
+        default=DEFAULT_OUTPUT_PATH,
         help="Output file path, or '-' for stdout (default: '-').",
     )
     return parser.parse_args()
