@@ -48,8 +48,9 @@ def run_list_profiles(app_path: Path) -> List[str]:
 
     lines = [l.strip() for l in result.stdout.splitlines()]
     # Filter out empty / separator lines
-    profiles = [l for l in lines if l and not l.startswith("#")]
-    return profiles
+     profiles = [line for line in lines if line and not line.startswith("#")]
+    unique = sorted(set(profiles))
+    return unique
 
 
 def make_markdown_table(profiles: List[str]) -> str:
