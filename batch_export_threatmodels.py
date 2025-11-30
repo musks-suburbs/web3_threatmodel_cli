@@ -19,6 +19,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--list-only",
+        action="store_true",
+        help="List profile names and exit, without exporting files.",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
@@ -85,6 +91,11 @@ def main() -> None:
     out_dir = Path(args.out_dir)
 
     profiles = run_list_profiles(app_path)
+    if args.list_only:
+        for p in profiles:
+            print(p)
+        sys.exit(EXIT_OK)
+
     if not profiles:
         print("No profiles found; nothing to export.", file=sys.stderr)
         sys.exit(1)
