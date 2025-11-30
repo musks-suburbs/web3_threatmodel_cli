@@ -71,7 +71,9 @@ def run_profile(app_path: Path, profile: str) -> str:
             f"`app.py --profile {profile}` failed with code {result.returncode}.\n"
             f"stderr:\n{result.stderr}"
         )
-    return result.stdout
+        
+ profiles = [l for l in lines if l and not l.startswith("#")]
+    return sorted(profiles)
 
 
 def wrap_markdown(profile: str, body: str) -> str:
