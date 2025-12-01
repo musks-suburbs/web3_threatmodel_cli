@@ -23,6 +23,12 @@ def parse_args() -> argparse.Namespace:
         default="-",
         help="Output file path, or '-' for stdout (default: '-').",
     )
+        parser.add_argument(
+        "--no-description-column",
+        action="store_true",
+        help="Generate a table with only the Profile column.",
+    )
+
     return parser.parse_args()
 
 
