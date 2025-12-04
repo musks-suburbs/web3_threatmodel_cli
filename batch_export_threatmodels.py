@@ -7,7 +7,11 @@ import subprocess
 import sys
 from pathlib import Path
 from typing import List
+QUIET = False
 
+def info(msg: str) -> None:
+    if not QUIET:
+        print(msg)
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -31,6 +35,12 @@ def parse_args() -> argparse.Namespace:
         default="md",
         help="File format: md (Markdown) or txt (plain text). Default: md.",
     )
+        parser.add_argument(
+        "--quiet",
+        action="store_true",
+        help="Only print errors (no progress logs).",
+    )
+
     return parser.parse_args()
 
 
@@ -83,7 +93,8 @@ def main() -> None:
     args = parse_args()
     app_path = Path(args.app_path)
     out_dir = Path(args.out_dir)
-
+  global QUIET
+    QUIET = args.quiet
     profiles = run_list_profiles(app_path)
     if not profiles:
         print("No profiles found; nothing to export.", file=sys.stderr)
@@ -91,14 +102,14 @@ def main() -> None:
 
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    print(f"Found profiles: {', '.join(profiles)}")
-    print(f"Writing exports to: {out_dir.resolve()}")
+  info(f"Found profiles: {', '.join(profiles)}")
+    info(f"Writing exports to: {out_dir.resolve()}")
 
     for profile in profiles:
         try:
             text = run_profile(app_path, profile)
         except Exception as e:  # noqa: BLE001
-            print(f"ERROR exporting profile '{profile}': {e}", file=sys.stderr)
+          info(f"  - wrote {out_path}")
             continue
 
         if args.format == "md":
@@ -112,7 +123,7 @@ def main() -> None:
         out_path.write_text(content, encoding="utf-8")
         print(f"  - wrote {out_path}")
 
-    print("Done.")
+    info("Done.")
 
 
 if __name__ == "__main__":
