@@ -41,6 +41,15 @@ class RiskProfile:
     matrix: List[RiskCell]
 JSONDict = Dict[str, Any]
 
+VALID_LEVELS = {"low", "medium", "high"}
+
+
+def validate_profile(profile: RiskProfile) -> None:
+    for cell in profile.matrix:
+        if cell.likelihood not in VALID_LEVELS:
+            raise ValueError(f"Invalid likelihood {cell.likelihood!r} in profile {profile.key}")
+        if cell.impact not in VALID_LEVELS:
+            raise ValueError(f"Invalid impact {cell.impact!r} in profile {profile.key}")
 
 PROFILES: Dict[str, RiskProfile] = {
     "aztec": RiskProfile(
