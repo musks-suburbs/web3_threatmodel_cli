@@ -194,5 +194,6 @@ def main() -> None:
         sys.exit(1)
 
 
+# Allow running this file directly as a script.
 if __name__ == "__main__":
     main()
