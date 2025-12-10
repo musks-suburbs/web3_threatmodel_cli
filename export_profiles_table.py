@@ -90,6 +90,7 @@ def make_markdown_table(profiles: List[str]) -> str:
 
 
 def write_output(text: str, output: str) -> None:
+    """Write text to stdout or to the given output path."""
     if output == "-" or output == "":
         sys.stdout.write(text)
         if not text.endswith("\n"):
