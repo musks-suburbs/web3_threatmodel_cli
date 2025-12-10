@@ -1,4 +1,10 @@
+"""Export web3_threatmodel_cli profiles to a Markdown table.
+
+Runs `app.py --list-profiles`, parses the output, and writes a simple
+Markdown table with one row per profile.
+"""
 #!/usr/bin/env python3
+
 import argparse
 import subprocess
 import sys
