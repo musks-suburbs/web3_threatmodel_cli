@@ -107,7 +107,7 @@ def write_output(text: str, output: str) -> None:
 def main() -> None:
     """Parse arguments, obtain profiles, and write the Markdown table."""
     args = parse_args()
-    app_path = Path(args.app_path)
+    app_path = Path(args.app_path).resolve()
 
     profiles = run_list_profiles(app_path)
     if not profiles:
