@@ -19,6 +19,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Show what would be exported without writing files.",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
@@ -93,6 +99,13 @@ def main() -> None:
 
     print(f"Found profiles: {', '.join(profiles)}")
     print(f"Writing exports to: {out_dir.resolve()}")
+        out_path = out_dir / f"{profile}{ext}"
+        if args.dry_run:
+            print(f"  - would write {out_path}")
+            continue
+
+        out_path.write_text(content, encoding="utf-8")
+        print(f"  - wrote {out_path}")
 
     for profile in profiles:
         try:
