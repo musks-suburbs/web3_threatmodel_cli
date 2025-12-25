@@ -10,8 +10,14 @@ from typing import List
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Export all threatmodel profiles to individual files."
+     parser = argparse.ArgumentParser(
+        description="Export all threatmodel profiles to individual files.",
+        epilog=(
+            "Examples:\n"
+            "  export_profiles.py\n"
+            "  export_profiles.py --out-dir docs/threatmodels\n"
+            "  export_profiles.py --format txt --max-profiles 5\n"
+        ),
     )
     parser.add_argument(
         "--app-path",
