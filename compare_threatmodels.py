@@ -113,7 +113,9 @@ def colorize(line: str, no_color: bool) -> str:
 def main() -> None:
     args = parse_args()
     app_path = Path(args.app_path)
-
+    if args.profile_a == args.profile_b:
+        print("ERROR: profile_a and profile_b must be different.", file=sys.stderr)
+        sys.exit(1)
     section = args.section
 
     # Fetch both profiles
