@@ -110,6 +110,7 @@ def main() -> None:
     app_path = Path(args.app_path)
 
     profiles = run_list_profiles(app_path)
+        print(f"Found {len(profiles)} profiles.", file=sys.stderr)
     if not profiles:
         print("No profiles found in `app.py --list-profiles` output.", file=sys.stderr)
         sys.exit(EXIT_NO_PROFILES)
