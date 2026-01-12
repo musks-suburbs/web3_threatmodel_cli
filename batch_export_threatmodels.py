@@ -19,6 +19,13 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--prefix",
+        type=str,
+        default="",
+        help="Prefix to prepend to each filename.",
+    )
+
     parser.add_argument(
         "--out-dir",
         type=str,
@@ -108,7 +115,7 @@ def main() -> None:
             content = text
             ext = ".txt"
 
-        out_path = out_dir / f"{profile}{ext}"
+                out_path = out_dir / f"{args.prefix}{profile}{args.suffix}{ext}"
         out_path.write_text(content, encoding="utf-8")
         print(f"  - wrote {out_path}")
 
