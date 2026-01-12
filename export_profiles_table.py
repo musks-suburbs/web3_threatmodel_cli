@@ -28,6 +28,13 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--skip-prefix",
+        type=str,
+        default="#",
+        help="Skip lines starting with this prefix when parsing profiles (default: '#').",
+    )
+
     parser.add_argument(
         "--output",
         "-o",
@@ -38,7 +45,13 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def run_list_profiles(app_path: Path) -> List[str]:
+def run_list_profiles(app_path: Path, sort_profiles: bool = True, skip_prefix: str = "#") -> List[str]:
+
+    profiles = [
+        line for line in lines
+        if line and not line.startswith(skip_prefix)
+    ]
+
     if not app_path.is_file():
    # in run_list_profiles
         print(f"ERROR: app.py not found at {app_path}", file=sys.stderr)
@@ -109,7 +122,12 @@ def main() -> None:
     args = parse_args()
     app_path = Path(args.app_path)
 
-    profiles = run_list_profiles(app_path)
+       profiles = run_list_profiles(
+        app_path,
+        sort_profiles=not args.no_sort,
+        skip_prefix=args.skip_prefix,
+    )
+
     if not profiles:
         print("No profiles found in `app.py --list-profiles` output.", file=sys.stderr)
         sys.exit(EXIT_NO_PROFILES)
