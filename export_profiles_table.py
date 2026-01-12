@@ -28,6 +28,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--show-command",
+        action="store_true",
+        help="Print the command used to list profiles.",
+    )
+
     parser.add_argument(
         "--output",
         "-o",
@@ -54,6 +60,8 @@ def run_list_profiles(app_path: Path) -> List[str]:
         capture_output=True,
         check=False,
     )
+    if args.show_command:
+        print(f"Running command: {' '.join(cmd)}", file=sys.stderr)
 
     if result.returncode != 0:
         print("ERROR: `app.py --list-profiles` failed.", file=sys.stderr)
