@@ -28,6 +28,12 @@ def parse_args() -> argparse.Namespace:
         default="app.py",
         help="Path to app.py (default: ./app.py).",
     )
+        parser.add_argument(
+        "--stdout",
+        action="store_true",
+        help="Force output to stdout (equivalent to -o -).",
+    )
+
     parser.add_argument(
         "--output",
         "-o",
@@ -108,6 +114,10 @@ def main() -> None:
     """Parse arguments, obtain profiles, and write the Markdown table."""
     args = parse_args()
     app_path = Path(args.app_path)
+    output = args.output
+    if args.stdout:
+        output = "-"
+    write_output(markdown, output)
 
     profiles = run_list_profiles(app_path)
     if not profiles:
