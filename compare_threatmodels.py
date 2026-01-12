@@ -64,7 +64,9 @@ def run_profile(
     app_path: Path,
     profile: str,
     section: Optional[str] = None,
+    debug_cmd: bool = False,
 ) -> str:
+    """Run `app.py --profile <profile> [--section <section>]` and return stdout."""
     if not app_path.is_file():
         print(f"ERROR: app.py not found at {app_path}", file=sys.stderr)
         sys.exit(1)
