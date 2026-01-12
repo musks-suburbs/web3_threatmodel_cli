@@ -13,6 +13,12 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Export all threatmodel profiles to individual files."
     )
+        parser.add_argument(
+        "--no-code-block",
+        action="store_true",
+        help="Do not wrap the content in a ```text code block.",
+    )
+
     parser.add_argument(
         "--app-path",
         type=str,
@@ -74,9 +80,13 @@ def run_profile(app_path: Path, profile: str) -> str:
     return result.stdout
 
 
-def wrap_markdown(profile: str, body: str) -> str:
+def wrap_markdown(profile: str, body: str, heading_level: int = 1, use_code_block: bool = True) -> str:
     body = body.rstrip("\n")
-    return f"# Threat model: `{profile}`\n\n```text\n{body}\n```\n"
+    heading_prefix = "#" * max(1, min(6, heading_level))
+    if use_code_block:
+        return f"{heading_prefix} Threat model: `{profile}`\n\n```text\n{body}\n```\n"
+    return f"{heading_prefix} Threat model: `{profile}`\n\n{body}\n"
+
 
 
 def main() -> None:
@@ -88,6 +98,12 @@ def main() -> None:
     if not profiles:
         print("No profiles found; nothing to export.", file=sys.stderr)
         sys.exit(1)
+            content = wrap_markdown(
+                profile,
+                text,
+                heading_level=args.heading_level,
+                use_code_block=not args.no_code_block,
+            )
 
     out_dir.mkdir(parents=True, exist_ok=True)
 
